@@ -54,7 +54,7 @@ def app():
             if password:
                 payload["password"] = password
             payload = json.dumps(payload)
-            print('payload sigin',payload)
+            # print('payload sigin',payload)
             r = requests.post(rest_api_url, params={"key": "AIzaSyApr-etDzcGcsVcmaw7R7rPxx3A09as7uw"}, data=payload)
             try:
                 data = r.json()
