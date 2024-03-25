@@ -1,4 +1,4 @@
-To get started:
+
 1. Install tensorflow and streamlit:
 -pip install tensorflow==2.12.0
 -pip install streamlit==1.24.0 
