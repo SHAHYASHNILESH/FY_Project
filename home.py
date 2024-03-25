@@ -62,9 +62,9 @@ import numpy as np
 class_names=['Bird-drop', 'Clean', 'Dusty', 'Electrical-damage', 'Physical-Damage', 'Snow-Covered']
 
 # Load the trained models
-model1 = load_model('C:/pondering/vgg_new.hdf5',compile=False)
-model2 = load_model('C:/pondering/resnet50_new.hdf5',compile=False)
-model3 = load_model('C:/pondering/mobilenetv3_new.hdf5',compile=False)
+model1 = load_model('C:/FY_Project/vgg_new.hdf5',compile=False)
+model2 = load_model('C:/FY_Project/resnet50_new.hdf5',compile=False)
+model3 = load_model('C:/FY_Project/mobilenetv3_new.hdf5',compile=False)
 
 # Preprocessing function
 def preprocess_image(image):
