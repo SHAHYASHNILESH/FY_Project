@@ -6,5 +6,5 @@ def app():
     st.subheader(':violet[Project Guide]: Prof. Monika Mangla.')
     st.subheader(':violet[Created by]:')
     st.markdown('1.Krishang Shah(SAP ID:60003200029)')
-    st.markdown('1.Harsh Shah(SAP ID:60003200036)')
-    st.markdown('1.Yash Shah(SAP ID:60003200048)')
+    st.markdown('2.Harsh Shah(SAP ID:60003200036)')
+    st.markdown('3.Yash Shah(SAP ID:60003200048)')
