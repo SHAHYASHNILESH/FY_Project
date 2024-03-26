@@ -50,7 +50,7 @@ class MultiApp:
             trending.app()        
         if app == 'Your Posts':
             your.app()
-        if app == 'about':
+        if app == 'About Us':
             about.app()    
              
           

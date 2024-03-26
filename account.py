@@ -15,7 +15,7 @@ if not firebase_admin._apps:
 def app():
     
 # Usernm = []
-    st.title('Welcome to :violet[Pondering] :sunglasses:')
+    st.title('Welcome to :violet[Final Year Project] :sunglasses:')
 
     if 'username' not in st.session_state:
         st.session_state.username = ''

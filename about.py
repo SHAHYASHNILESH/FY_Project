@@ -1,8 +1,10 @@
 import streamlit as st
 
 def app():
-    st.subheader('Pondering is a website created for users to')
-    st.subheader('share their valuable thoughts with the world.')
-    st.markdown('Created by: [Ashwani Siwach](https://github.com/Ashwani132003)')
-    st.markdown('Contact via mail: [siwachsahab1@gmail.com]')
-    
+    st.header('Solar Panel Defect Detection using CV')
+    st.subheader(':violet[Description]: It is our final year project created for users to identify the defects in solar panel.')
+    st.subheader(':violet[Project Guide]: Prof. Monika Mangla.')
+    st.subheader(':violet[Created by]:')
+    st.markdown('1.Krishang Shah(SAP ID:60003200029)')
+    st.markdown('1.Harsh Shah(SAP ID:60003200036)')
+    st.markdown('1.Yash Shah(SAP ID:60003200048)')

@@ -1,4 +1,5 @@
 import streamlit as st
+from collections import Counter
 from firebase_admin import firestore
 
 # def app():
@@ -87,40 +88,62 @@ def detect_defect(image,name):
         prediction = model2.predict(image)
     else:
         prediction = model3.predict(image)
-    # prediction2 = model2.predict(image)
-    # prediction3 = model3.predict(image)
-    # Combine predictions
-    # combined_prediction = (prediction1 + prediction2 + prediction3) / 3.0
-    # return combined_prediction
+    
     return prediction
 
 
 # Streamlit app
 def main():
     st.title('Solar Panel Defect Detection')
-    st.write('Upload an image of a solar panel to detect defects.')
-
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-
-    if uploaded_file is not None:
-        # Display the uploaded image
-        image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
-
-        # Detect defect
-        prediction1 = detect_defect(image,'VGG')
-        st.write(prediction1)
-        score1 = tf.nn.softmax(prediction1[0])
-
-        prediction2 = detect_defect(image,'Resnet')
-        st.write(prediction2)
-        score2 = tf.nn.softmax(prediction2[0])
-
-        prediction3 = detect_defect(image,'Mobilenet')
-        st.write(prediction3)
-        score3 = tf.nn.softmax(prediction3[0])
+    if st.session_state.username!='':
+        print(st.session_state.username)
         
-        # Display result
-        st.write('Defect Class from VGG-Model:', class_names[np.argmax(score1)])
-        st.write('Defect Class from Resnet-50 Model:', class_names[np.argmax(score2)])
-        st.write('Defect Class from MobileNetV3 Model:', class_names[np.argmax(score3)])
+        st.write('Upload an image of a solar panel to detect defects.')
+
+        uploaded_file = st.file_uploader("Choose an image..", type=["jpg", "jpeg", "png"])
+
+        if uploaded_file is not None:
+            # Display the uploaded image
+            image = Image.open(uploaded_file)
+            st.image(image, caption='Uploaded Image', use_column_width=True)
+
+            # Detect defect
+            prediction1 = detect_defect(image,'VGG')
+            st.write(prediction1)
+            score1 = tf.nn.softmax(prediction1[0])
+
+            prediction2 = detect_defect(image,'Resnet')
+            st.write(prediction2)
+            score2 = tf.nn.softmax(prediction2[0])
+
+            prediction3 = detect_defect(image,'Mobilenet')
+            st.write(prediction3)
+            score3 = tf.nn.softmax(prediction3[0])
+            
+            # Display result
+            # st.write('Defect Class from VGG-Model:', class_names[np.argmax(score1)])
+            # st.write('Defect Class from Resnet-50 Model:', class_names[np.argmax(score2)])
+            # st.write('Defect Class from MobileNetV3 Model:', class_names[np.argmax(score3)])
+
+            index1 = np.argmax(score1)
+            index2 = np.argmax(score2)
+            index3 = np.argmax(score3)
+
+            # Combine the indices from all models
+            combined_indices = [index1, index2, index3]
+
+            # Count occurrences of each index
+            vote_count = Counter(combined_indices)
+
+            # Find the index with the highest count (majority vote)
+            majority_index = vote_count.most_common(1)[0][0]
+
+            # Get the corresponding class name from the majority voted index
+            majority_class_name = class_names[majority_index]
+
+            print(majority_class_name)
+            st.write('Defect Detected:', majority_class_name)
+
+    else:
+        print(st.session_state.username)
+        st.text('Please Login first')  
