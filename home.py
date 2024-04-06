@@ -1,149 +1,127 @@
 import streamlit as st
-from collections import Counter
-from firebase_admin import firestore
-
-# def app():
-    
-#     if 'db' not in st.session_state:
-#         st.session_state.db = ''
-
-#     db=firestore.client()
-#     st.session_state.db=db
-#     # st.title('  :violet[Pondering]  :sunglasses:')
-    
-#     ph = ''
-#     if st.session_state.username=='':
-#         ph = 'Login to be able to post!!'
-#     else:
-#         ph='Post your thought'    
-#     post=st.text_area(label=' :orange[+ New Post]',placeholder=ph,height=None, max_chars=500)
-#     if st.button('Post',use_container_width=20):
-#         if post!='':
-                    
-#             info = db.collection('Posts').document(st.session_state.username).get()
-#             if info.exists:
-#                 info = info.to_dict()
-#                 if 'Content' in info.keys():
-                
-#                     pos=db.collection('Posts').document(st.session_state.username)
-#                     pos.update({u'Content': firestore.ArrayUnion([u'{}'.format(post)])})
-#                     # st.write('Post uploaded!!')
-#                 else:
-                    
-#                     data={"Content":[post],'Username':st.session_state.username}
-#                     db.collection('Posts').document(st.session_state.username).set(data)    
-#             else:
-                    
-#                 data={"Content":[post],'Username':st.session_state.username}
-#                 db.collection('Posts').document(st.session_state.username).set(data)
-                
-#             st.success('Post uploaded!!')
-    
-#     st.header(' :violet[Latest Posts] ')
-    
-    
-    
-    
-    
-#     docs = db.collection('Posts').get()
-            
-#     for doc in docs:
-#         d=doc.to_dict()
-#         try:
-#             st.text_area(label=':green[Posted by:] '+':orange[{}]'.format(d['Username']),value=d['Content'][-1],height=20)
-#         except: pass
-
-
-import streamlit as st
 import tensorflow as tf
 from PIL import Image
-from keras.models import load_model
 import numpy as np
+from collections import Counter
+import io
+import base64
+from keras.models import load_model
+from firebase_admin import credentials, firestore, initialize_app, storage
 
-class_names=['Bird-drop', 'Clean', 'Dusty', 'Electrical-damage', 'Physical-Damage', 'Snow-Covered']
+class_names = [
+    "Bird-drop",
+    "Clean",
+    "Dusty",
+    "Electrical-damage",
+    "Physical-Damage",
+    "Snow-Covered",
+]
+
+
+# Initialize Firebase
+db = firestore.client()
+
 
 # Load the trained models
-model1 = load_model('C:/FY_Project/vgg_new.hdf5',compile=False)
-model2 = load_model('C:/FY_Project/resnet50_new.hdf5',compile=False)
-model3 = load_model('C:/FY_Project/mobilenetv3_new.hdf5',compile=False)
+model1 = load_model("C:/FY_Project/vgg_new.hdf5", compile=False)
+model2 = load_model("C:/FY_Project/resnet50_new.hdf5", compile=False)
+model3 = load_model("C:/FY_Project/mobilenetv3_new.hdf5", compile=False)
+
 
 # Preprocessing function
 def preprocess_image(image):
-    # Resize the image to match the input size of the models
     image = image.resize((224, 224))
-    # Convert image to numpy array
     image = np.array(image)
-
-    # Expand dimensions to match the input shape of the models
     image = np.expand_dims(image, axis=0)
     return image
 
+
 # Define defect detection function
-def detect_defect(image,name):
+def detect_defect(image, name):
     image = preprocess_image(image)
-    # Predict using each model
-    if name=='VGG':
+    if name == "VGG":
         prediction = model1.predict(image)
-    elif name=='Resnet':
+    elif name == "Resnet":
         prediction = model2.predict(image)
     else:
         prediction = model3.predict(image)
-    
     return prediction
 
 
 # Streamlit app
 def main():
-    st.title('Solar Panel Defect Detection')
-    if st.session_state.username!='':
-        print(st.session_state.username)
-        
-        st.write('Upload an image of a solar panel to detect defects.')
+    st.title("Solar Panel Defect Detection")
 
-        uploaded_file = st.file_uploader("Choose an image..", type=["jpg", "jpeg", "png"])
+    if st.session_state.username != "":
+        st.write("Upload an image of a solar panel to detect defects.")
+        uploaded_file = st.file_uploader(
+            "Choose an image..", type=["jpg", "jpeg", "png"]
+        )
 
         if uploaded_file is not None:
             # Display the uploaded image
             image = Image.open(uploaded_file)
-            st.image(image, caption='Uploaded Image', use_column_width=True)
+            st.image(image, caption="Uploaded Image", use_column_width=True)
 
             # Detect defect
-            prediction1 = detect_defect(image,'VGG')
-            st.write(prediction1)
+            prediction1 = detect_defect(image, "VGG")
             score1 = tf.nn.softmax(prediction1[0])
-
-            prediction2 = detect_defect(image,'Resnet')
-            st.write(prediction2)
+            prediction2 = detect_defect(image, "Resnet")
             score2 = tf.nn.softmax(prediction2[0])
-
-            prediction3 = detect_defect(image,'Mobilenet')
-            st.write(prediction3)
+            prediction3 = detect_defect(image, "Mobilenet")
             score3 = tf.nn.softmax(prediction3[0])
-            
-            # Display result
-            # st.write('Defect Class from VGG-Model:', class_names[np.argmax(score1)])
-            # st.write('Defect Class from Resnet-50 Model:', class_names[np.argmax(score2)])
-            # st.write('Defect Class from MobileNetV3 Model:', class_names[np.argmax(score3)])
 
             index1 = np.argmax(score1)
             index2 = np.argmax(score2)
             index3 = np.argmax(score3)
 
-            # Combine the indices from all models
             combined_indices = [index1, index2, index3]
-
-            # Count occurrences of each index
             vote_count = Counter(combined_indices)
-
-            # Find the index with the highest count (majority vote)
             majority_index = vote_count.most_common(1)[0][0]
-
-            # Get the corresponding class name from the majority voted index
             majority_class_name = class_names[majority_index]
 
-            print(majority_class_name)
-            st.write('Defect Detected:', majority_class_name)
+            # print(uploaded_file)
+            st.write("Defect Detected:", majority_class_name)
+
+            # Store image and defect in Firestore
+            if st.button("Send to Manager"):
+                with io.BytesIO() as output:
+                    image.save(output, format="JPEG")
+                    image_bytes = output.getvalue()
+                image_b64 = base64.b64encode(image_bytes).decode()
+                defects_ref = db.collection("defects")
+                defects_ref.add(
+                    {
+                        "username": st.session_state.username,
+                        "image": image_b64,
+                        "defect_class": majority_class_name,
+                    }
+                )
+                st.success("Image and defect saved successfully!")
+
+            # Retrieve and display data from Firestore
+            st.header("Recent Defects")
+            defects_ref = db.collection("defects")
+            defects_data = defects_ref.get()
+
+            for defect_doc in defects_data:
+                defect = defect_doc.to_dict()
+                st.write("Username:", defect["username"])
+
+                try:
+                    image_bytes = base64.b64decode(defect["image"])
+                    # print(image_bytes)
+                    image = Image.open(io.BytesIO(image_bytes))
+                    st.image(image, caption="Uploaded Image", use_column_width=True)
+                except Exception as e:
+                    st.error("Error loading image: {}".format(e))
+
+                st.write("Defect Class:", defect["defect_class"])
+                st.markdown("---")
 
     else:
-        print(st.session_state.username)
-        st.text('Please Login first')  
+        st.text("Please Login first")
+
+
+if __name__ == "__main__":
+    main()

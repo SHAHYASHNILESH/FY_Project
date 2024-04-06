@@ -7,11 +7,14 @@ import json
 import requests
 
 
-# Check if Firebase app is already initialized
+# Check if Firebase app is not already initialized
 if not firebase_admin._apps:
+    # Initialize Firebase
     cred = credentials.Certificate("fy-project-a9188-c7e54655ad87.json")
+    print(cred)
     firebase_admin.initialize_app(cred)
 
+    
 def app():
     
 # Usernm = []
