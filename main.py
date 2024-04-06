@@ -29,7 +29,8 @@ class MultiApp:
 
             app = option_menu(
                 menu_title='Dashboard',
-                options=['Defect Detection','Account','Trending','Your Posts','About Us'],
+                # options=['Defect Detection','Account','Trending','Your Posts','About Us'],
+                options=['Defect Detection','Account','About Us'],
                 icons=['house-fill','person-circle','trophy-fill','chat-fill','info-circle-fill'],
                 menu_icon='chat-text-fill',
                 default_index=1,
@@ -46,10 +47,10 @@ class MultiApp:
             home.main()
         if app == "Account":
             account.app()    
-        if app == "Trending":
-            trending.app()        
-        if app == 'Your Posts':
-            your.app()
+        # if app == "Trending":
+        #     trending.app()        
+        # if app == 'Your Posts':
+        #     your.app()
         if app == 'About Us':
             about.app()    
              
