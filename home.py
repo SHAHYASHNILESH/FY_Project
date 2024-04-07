@@ -118,7 +118,7 @@ def main():
                         "defect_class": majority_class_name,
                     }
                 )
-                st.success("Image and defect saved successfully!")
+                st.success("Image and defect sent successfully!")
             
 
     else:

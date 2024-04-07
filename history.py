@@ -32,23 +32,24 @@ model2 = load_model("C:/FY_Project/resnet50_new.hdf5", compile=False)
 model3 = load_model("C:/FY_Project/mobilenetv3_new.hdf5", compile=False)
 
 
-def display_defect_card(defect):
-    print(defect["username"])
-    col1, col2, col3 = st.columns([1, 3, 3])
-    with col1:
-        print("aa")
-        # st.image("", width=1)  # Adjust spacing
-    with col2:
-        st.write(f"**Username:** {defect['username']}")
-        st.write(f"**Defect Class:** {defect['defect_class']}")
-    with col3:
-        try:
-            image_bytes = base64.b64decode(defect["image"])
-            # print(image_bytes)
-            image = Image.open(io.BytesIO(image_bytes))
-            st.image(image, caption="Uploaded Image", use_column_width=True)
-        except Exception as e:
-            st.error("Error loading image: {}".format(e))
+def display_defect_card(defect, logged_in_username):
+    if defect["username"] == logged_in_username:
+        st.markdown("---")
+        col1, col2, col3 = st.columns([1, 3, 3])
+        with col1:
+            # st.image("", width=1)  # Adjust spacing
+            pass
+        with col2:
+            st.write(f"**Username:** {defect['username']}")
+            st.write(f"**Defect Class:** {defect['defect_class']}")
+        with col3:
+            try:
+                image_bytes = base64.b64decode(defect["image"])
+                image = Image.open(io.BytesIO(image_bytes))
+                st.image(image, caption="Uploaded Image", use_column_width=True)
+            except Exception as e:
+                st.error("Error loading image: {}".format(e))
+        st.markdown("---")
 
 
 # Streamlit app
@@ -57,13 +58,14 @@ def main():
 
     if st.session_state.username != "":
         # st.header("Recent Defects")
+        logged_in_username = st.session_state.username
         defects_ref = db.collection("defects")
         defects_data = defects_ref.get()
 
         for defect_doc in defects_data:
             defect = defect_doc.to_dict()
-            display_defect_card(defect)
-            st.markdown("---")
+            display_defect_card(defect, logged_in_username)
+           
 
     else:
         st.text("Please Login first")
