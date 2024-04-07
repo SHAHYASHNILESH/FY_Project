@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 
-import home, trending, account, your, about
+import home,account, about,history
 st.set_page_config(
         page_title="Solar Panel Defect Detection",
 )
@@ -30,7 +30,7 @@ class MultiApp:
             app = option_menu(
                 menu_title='Dashboard',
                 # options=['Defect Detection','Account','Trending','Your Posts','About Us'],
-                options=['Defect Detection','Account','About Us'],
+                options=['Defect Detection','Previous History','Account','About Us'],
                 icons=['house-fill','person-circle','trophy-fill','chat-fill','info-circle-fill'],
                 menu_icon='chat-text-fill',
                 default_index=1,
@@ -45,6 +45,8 @@ class MultiApp:
         
         if app == "Defect Detection":
             home.main()
+        if app =="Previous History":
+            history.main()
         if app == "Account":
             account.app()    
         # if app == "Trending":

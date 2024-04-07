@@ -5,6 +5,7 @@ import numpy as np
 from collections import Counter
 import io
 import base64
+import firebase_admin
 from keras.models import load_model
 from firebase_admin import credentials, firestore, initialize_app, storage
 
@@ -19,6 +20,9 @@ class_names = [
 
 
 # Initialize Firebase
+# cred = credentials.Certificate("fy-project-a9188-c7e54655ad87.json")
+# print(cred)
+# firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
@@ -47,6 +51,23 @@ def detect_defect(image, name):
         prediction = model3.predict(image)
     return prediction
 
+def display_defect_card(defect):
+    print(defect['username'])
+    col1, col2, col3 = st.columns([1, 3, 3])
+    with col1:
+        print("aa")
+        # st.image("", width=1)  # Adjust spacing
+    with col2:
+        st.write(f"**Username:** {defect['username']}")
+        st.write(f"**Defect Class:** {defect['defect_class']}")
+    with col3:
+        try:
+            image_bytes = base64.b64decode(defect["image"])
+            # print(image_bytes)
+            image = Image.open(io.BytesIO(image_bytes))
+            st.image(image, caption="Uploaded Image", use_column_width=True)
+        except Exception as e:
+            st.error("Error loading image: {}".format(e))
 
 # Streamlit app
 def main():
@@ -98,26 +119,7 @@ def main():
                     }
                 )
                 st.success("Image and defect saved successfully!")
-
-            # Retrieve and display data from Firestore
-            st.header("Recent Defects")
-            defects_ref = db.collection("defects")
-            defects_data = defects_ref.get()
-
-            for defect_doc in defects_data:
-                defect = defect_doc.to_dict()
-                st.write("Username:", defect["username"])
-
-                try:
-                    image_bytes = base64.b64decode(defect["image"])
-                    # print(image_bytes)
-                    image = Image.open(io.BytesIO(image_bytes))
-                    st.image(image, caption="Uploaded Image", use_column_width=True)
-                except Exception as e:
-                    st.error("Error loading image: {}".format(e))
-
-                st.write("Defect Class:", defect["defect_class"])
-                st.markdown("---")
+            
 
     else:
         st.text("Please Login first")
