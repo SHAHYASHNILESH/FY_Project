@@ -51,8 +51,9 @@ def detect_defect(image, name):
         prediction = model3.predict(image)
     return prediction
 
+
 def display_defect_card(defect):
-    print(defect['username'])
+    print(defect["username"])
     col1, col2, col3 = st.columns([1, 3, 3])
     with col1:
         print("aa")
@@ -68,6 +69,7 @@ def display_defect_card(defect):
             st.image(image, caption="Uploaded Image", use_column_width=True)
         except Exception as e:
             st.error("Error loading image: {}".format(e))
+
 
 # Streamlit app
 def main():
@@ -119,7 +121,6 @@ def main():
                     }
                 )
                 st.success("Image and defect sent successfully!")
-            
 
     else:
         st.text("Please Login first")

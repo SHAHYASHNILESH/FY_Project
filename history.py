@@ -38,7 +38,7 @@ def display_defect_card(defect, logged_in_username):
         col1, col2, col3 = st.columns([1, 3, 3])
         with col1:
             # st.image("", width=1)  # Adjust spacing
-            
+
             pass
         with col2:
             st.write(f"**Username:** {defect['username']}")
@@ -66,7 +66,6 @@ def main():
         for defect_doc in defects_data:
             defect = defect_doc.to_dict()
             display_defect_card(defect, logged_in_username)
-           
 
     else:
         st.text("Please Login first")

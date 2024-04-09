@@ -1,5 +1,5 @@
 import streamlit as st
-import home,input
+import home, input
 import account, history
 
 # Define CSS styles for buttons and hover effects
@@ -22,9 +22,7 @@ button_styles = """
         }
     </style>
 """
-original_title = (
-    '<h1 style="font-family: serif; color:black; font-size: 36px;margin-top:-50px;">Dashboard </h1>'
-)
+original_title = '<h1 style="font-family: serif; color:black; font-size: 36px;margin-top:-50px;">Dashboard </h1>'
 
 background_image = """
 <style>
@@ -78,7 +76,7 @@ def main():
         home.main()
     elif page == "account":
         account.app()
-    elif page=="prediction":
+    elif page == "prediction":
         input.main()
     elif page == "history":
         history.main()
