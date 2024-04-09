@@ -38,6 +38,7 @@ def display_defect_card(defect, logged_in_username):
         col1, col2, col3 = st.columns([1, 3, 3])
         with col1:
             # st.image("", width=1)  # Adjust spacing
+            
             pass
         with col2:
             st.write(f"**Username:** {defect['username']}")
