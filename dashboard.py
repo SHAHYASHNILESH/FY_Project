@@ -1,5 +1,5 @@
 import streamlit as st
-import home
+import home,input
 import account, history
 
 # Define CSS styles for buttons and hover effects
@@ -78,6 +78,8 @@ def main():
         home.main()
     elif page == "account":
         account.app()
+    elif page=="prediction":
+        input.main()
     elif page == "history":
         history.main()
     # Add more elif conditions for other pages
