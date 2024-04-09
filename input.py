@@ -35,6 +35,45 @@ background_image = """
 </style>
 """
 
+def pred(daily_yield,total_yield,ambient_temperature,module_temperature,irradiation,dc_power):
+    # Load the models
+    lr_model = joblib.load("C:/FY_Project/linear_regression_model.pkl")
+    dt_model = joblib.load("C:/FY_Project/decision_tree_model.pkl")
+    rf_model = joblib.load("C:/FY_Project/random_forest_model.pkl")
+
+    # # Sidebar with user input
+    # st.sidebar.title("Input Parameters")
+    # irradiation = st.sidebar.number_input("IRRADIATION", value=0.002838054505)
+    # daily_yield = st.sidebar.number_input("DAILY YIELD", value=4461)
+    # module_temperature = st.sidebar.number_input(
+    #         "MODULE TEMPERATURE", value=23.7866617999999
+    # )
+    # ambient_temperature = st.sidebar.number_input(
+    #         "AMBIENT TEMPERATURE", value=24.7412737999999
+    # )
+    # total_yield = st.sidebar.number_input("TOTAL YIELD", value=1795087538)
+    # dc_power = st.sidebar.number_input("DC POWER", value=65.9333333333333)
+
+    # Create testing data
+    testing_new = np.array(
+            [
+                daily_yield,
+                total_yield,
+                ambient_temperature,
+                module_temperature,
+                irradiation,
+                dc_power,
+            ]
+    ).reshape(1, -1)
+
+    # Make predictions using each model
+    lr_prediction = lr_model.predict(testing_new)
+    dt_prediction = dt_model.predict(testing_new)
+    rf_prediction = rf_model.predict(testing_new)
+    average_prediction = (lr_prediction + dt_prediction + rf_prediction) / 3
+
+    return average_prediction[0]
+
 
 # Main Streamlit app
 def main():
@@ -58,59 +97,22 @@ def main():
         else:
             st.error("Please enter both State and City.")
     if state == "Maharashtra" and city == "Mumbai":
-        
-        # Load the models
-        lr_model = joblib.load("C:/FY_Project/linear_regression_model.pkl")
-        dt_model = joblib.load("C:/FY_Project/decision_tree_model.pkl")
-        rf_model = joblib.load("C:/FY_Project/random_forest_model.pkl")
-
-        # Sidebar with user input
-        st.sidebar.title("Input Parameters")
-        irradiation = st.sidebar.number_input("IRRADIATION", value=0.002838054505)
-        daily_yield = st.sidebar.number_input("DAILY YIELD", value=4461)
-        module_temperature = st.sidebar.number_input(
-            "MODULE TEMPERATURE", value=23.7866617999999
-        )
-        ambient_temperature = st.sidebar.number_input(
-            "AMBIENT TEMPERATURE", value=24.7412737999999
-        )
-        total_yield = st.sidebar.number_input("TOTAL YIELD", value=1795087538)
-        dc_power = st.sidebar.number_input("DC POWER", value=65.9333333333333)
-
-        # Create testing data
-        testing_new = np.array(
-            [
-                daily_yield,
-                total_yield,
-                ambient_temperature,
-                module_temperature,
-                irradiation,
-                dc_power,
-            ]
-        ).reshape(1, -1)
-
-        # Make predictions using each model
-        lr_prediction = lr_model.predict(testing_new)
-        dt_prediction = dt_model.predict(testing_new)
-        rf_prediction = rf_model.predict(testing_new)
-        average_prediction = (lr_prediction + dt_prediction + rf_prediction) / 3
-
-        # Display predictions
-        st.write("## Predictions")
+       prediction=pred(4461,1795087538,24.7412737999999,23.7866617999999,0.002838054505,65.9333333333333)
+       # Display predictions
         # st.write("Linear Regression Prediction:", lr_prediction[0])
         # st.write("Decision Tree Prediction:", dt_prediction[0])
         # st.write("Random Forest Prediction:", rf_prediction[0])
         # st.write("Average Prediction:", average_prediction[0])
-        st.write(
-                f"<h3 style='color:white;'>Predicted Power generation:{average_prediction[0]}</h3>",
+       st.write(
+                f"<h3 style='color:white;'>Predicted Power generation:{prediction}</h3>",
                 unsafe_allow_html=True,
-            )
-        if state == "Rajasthan" and city == "Jaipur":
+       )
+       if state == "Rajasthan" and city == "Jaipur":
             st.write(
                 "<h3 style='color:white;'>Generation is 1200 kw</h3>",
                 unsafe_allow_html=True,
             )
-        if state == "Gujrat" and city == "Surat":
+       if state == "Gujrat" and city == "Surat":
             st.write(
                 "<h3 style='color:white;'>Generation is 1500 kw</h3>",
                 unsafe_allow_html=True,
