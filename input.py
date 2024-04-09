@@ -58,10 +58,7 @@ def main():
         else:
             st.error("Please enter both State and City.")
     if state == "Maharashtra" and city == "Mumbai":
-        # st.write(
-        #     "<h3 style='color:white;'>Generation is 1000 kw</h3>",
-        #     unsafe_allow_html=True,
-        # )
+        
         # Load the models
         lr_model = joblib.load("C:/FY_Project/linear_regression_model.pkl")
         dt_model = joblib.load("C:/FY_Project/decision_tree_model.pkl")
