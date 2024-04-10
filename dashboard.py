@@ -6,11 +6,10 @@ import account, history
 button_styles = """
     <style>
         .orange-button {
-            background-color: orange;
+            background-color: green;
             color: white;
-            border: 2px solid orange;
+            border: 2px solid green;
             border-radius: 5px;
-            
             margin-top:15px;
             font-size: 10px;
             cursor: pointer;
@@ -18,11 +17,20 @@ button_styles = """
         }
         .orange-button:hover {
             background-color: white;
-            color: orange;
+            color: green;
+        }
+        button[kind="primary"] {
+            background-color: black;
+            color:white;
+            width:250px;
+            height:80px;
+            margin:10px;
+            border: 3px solid green;
+            border-radius: 15px;
         }
     </style>
 """
-original_title = '<h1 style="font-family: serif; color:black; font-size: 36px;margin-top:-50px;">Dashboard </h1>'
+original_title = '<h1 style="font-family: serif; color:white; font-size: 36px;margin:15px;">Dashboard </h1>'
 
 background_image = """
 <style>
@@ -40,36 +48,36 @@ background_image = """
 def main():
     st.markdown(background_image, unsafe_allow_html=True)
     st.markdown(button_styles, unsafe_allow_html=True)
-    st.markdown(original_title, unsafe_allow_html=True)
-
-    # Buttons with text
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        if st.button("Upload Image", key="button1"):
+    
+    # Buttons with text in sidebar
+    with st.sidebar:
+        st.markdown(original_title, unsafe_allow_html=True)
+        if st.button("Upload Image", key="button1", type="primary"):
             # Redirect to the home page
             st.experimental_set_query_params(page="home")
 
-    with col2:
-        if st.button("Power Prediction", key="button2"):
+        if st.button("Power Prediction", key="button2", type="primary"):
             # Redirect to the prediction page
             st.experimental_set_query_params(page="prediction")
 
-    with col3:
-        if st.button("Govt-Schemes", key="button3"):
+        if st.button("Govt-Schemes", key="button3", type="primary"):
             # Redirect to the government schemes page
             st.experimental_set_query_params(page="govt_schemes")
-    with col4:
-        if st.button("History", key="button4"):
+
+        if st.button("History", key="button4", type="primary"):
             # Redirect to the account page
             st.experimental_set_query_params(page="history")
 
-    with col5:
-        if st.button("Login/Sign-up", key="button5"):
+        if st.button("Login/Sign-up", key="button5", type="primary"):
             # Redirect to the account page
             st.experimental_set_query_params(page="account")
 
     # Retrieve the page parameter from the URL
     page = st.experimental_get_query_params().get("page", [""])[0]
+
+    # Set the default page if the app is just starting
+    if not page:
+        page = "account"  # Set the default page to the account page
 
     # Render different components based on the selected page
     if page == "home":

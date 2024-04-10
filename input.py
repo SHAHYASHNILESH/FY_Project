@@ -20,7 +20,7 @@ button_styles = """
         }
         .orange-button:hover {
             background-color: white;
-            color: orange;
+            color: green;
         }
     </style>
 """
