@@ -47,7 +47,7 @@ def display_defect_card(defect, logged_in_username):
             try:
                 image_bytes = base64.b64decode(defect["image"])
                 image = Image.open(io.BytesIO(image_bytes))
-                st.image(image, caption="Uploaded Image", use_column_width=True)
+                st.image(image, caption="Uploaded Image", width=300)
             except Exception as e:
                 st.error("Error loading image: {}".format(e))
         st.markdown("---")
