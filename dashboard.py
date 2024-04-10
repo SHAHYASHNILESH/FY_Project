@@ -35,7 +35,7 @@ original_title = '<h1 style="font-family: serif; color:white; font-size: 36px;ma
 background_image = """
 <style>
 [data-testid="stAppViewContainer"] > .main {
-    background-image: url("https://media.istockphoto.com/id/1455169709/photo/solar-panels-reflect-sparkling-light-and-golden-sky-clean-energy-and-environment.webp?b=1&s=170667a&w=0&k=20&c=k27ZSV3ATE-dlMcXg6P6JNJbPeQ7SBnzesCafw6dSoA=");
+    background-image: url("https://opc-dc.gov/wp-content/uploads/2022/05/istockphoto-1247794854-612x612-1.jpg");
     background-size: 100vw 100vh;  # This sets the size to cover 100% of the viewport width and height
     background-position: center;  
     background-repeat: no-repeat;
