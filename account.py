@@ -11,8 +11,9 @@ import requests
 if not firebase_admin._apps:
     # Initialize Firebase
     cred = credentials.Certificate("fy-project-a9188-c7e54655ad87.json")
-    print(cred)
+    # print(cred)
     firebase_admin.initialize_app(cred)
+db = firestore.client()
 
     
 def app():
@@ -38,6 +39,14 @@ def app():
                 payload["displayName"] = username 
             payload = json.dumps(payload)
             r = requests.post(rest_api_url, params={"key": "AIzaSyApr-etDzcGcsVcmaw7R7rPxx3A09as7uw"}, data=payload)
+            users_ref = db.collection("users")
+            users_ref.add(
+                    {
+                       "email": email,
+                        "password": password,
+                        "username":username
+                    }
+                )
             try:
                 return r.json()['email']
             except:

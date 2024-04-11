@@ -1,6 +1,15 @@
 import streamlit as st
 import home, input
 import account, history
+from firebase_admin import credentials, firestore, initialize_app, storage
+
+# if not firebase_admin._apps:
+#     # Initialize Firebase
+#     cred = credentials.Certificate("fy-project-a9188-c7e54655ad87.json")
+#     # print(cred)
+#     firebase_admin.initialize_app(cred)
+
+# db = firestore.client()
 
 # Define CSS styles for buttons and hover effects
 button_styles = """
