@@ -107,55 +107,58 @@ def main():
     # state = st.text_input("Enter State")
     # city = st.text_input("Enter City")
     # Define options for states and cities
-    states = ["Maharashtra", "Gujarat", "Rajasthan"]  # Add your list of states here
-    cities = {
-        "Maharashtra": ["Mumbai", "Pune"],  # Add cities corresponding to each state
-        "Gujarat": ["Surat", "Ahmedabad"],
-        "Rajasthan": ["Jaipur", "Udaipur"],
-    }
+    if st.session_state.username != "":
+        states = ["Maharashtra", "Gujarat", "Rajasthan"]  # Add your list of states here
+        cities = {
+            "Maharashtra": ["Mumbai", "Pune"],  # Add cities corresponding to each state
+            "Gujarat": ["Surat", "Ahmedabad"],
+            "Rajasthan": ["Jaipur", "Udaipur"],
+        }
 
-    # Create dropdowns for state and city
-    state = st.selectbox("Select State", states)
-    city = st.selectbox("Select City", cities[state])
-    # Inject CSS style for button
-    st.markdown(button_styles, unsafe_allow_html=True)
+        # Create dropdowns for state and city
+        state = st.selectbox("Select State", states)
+        city = st.selectbox("Select City", cities[state])
+        # Inject CSS style for button
+        st.markdown(button_styles, unsafe_allow_html=True)
 
-    # Prediction button
-    
-    if st.button('Predict',type="secondary"):
-        if state == "Maharashtra" and city == "Mumbai":
-            prediction = pred(
-                4461,
-                1795087538,
-                24.7412737999999,
-                23.7866617999999,
-                0.002838054505,
-                65.9333333333333,
-            )
-            # Display predictions
-            # st.write("Linear Regression Prediction:", lr_prediction[0])
-            # st.write("Decision Tree Prediction:", dt_prediction[0])
-            # st.write("Random Forest Prediction:", rf_prediction[0])
-            # st.write("Average Prediction:", average_prediction[0])
-            # Round the prediction to 2 decimal places
-            rounded_prediction = round(prediction, 2)
+        # Prediction button
+        
+        if st.button('Predict',type="secondary"):
+            if state == "Maharashtra" and city == "Mumbai":
+                prediction = pred(
+                    4461,
+                    1795087538,
+                    24.7412737999999,
+                    23.7866617999999,
+                    0.002838054505,
+                    65.9333333333333,
+                )
+                # Display predictions
+                # st.write("Linear Regression Prediction:", lr_prediction[0])
+                # st.write("Decision Tree Prediction:", dt_prediction[0])
+                # st.write("Random Forest Prediction:", rf_prediction[0])
+                # st.write("Average Prediction:", average_prediction[0])
+                # Round the prediction to 2 decimal places
+                rounded_prediction = round(prediction, 2)
 
-            # Display the rounded prediction
-            st.write(
-                f"<h3 style='color:white;'>Predicted Power generation: {rounded_prediction}W</h3>",
-                unsafe_allow_html=True,
-            )
-        if state == "Rajasthan" and city == "Jaipur":
-            st.write(
-                "<h3 style='color:white;'>Generation is 1200 w</h3>",
-                unsafe_allow_html=True,
-            )
-        if state == "Gujarat" and city == "Surat":
-            st.write(
-                "<h3 style='color:white;'>Generation is 1500 kw</h3>",
-                unsafe_allow_html=True,
-            )
+                # Display the rounded prediction
+                st.write(
+                    f"<h3 style='color:white;'>Predicted Power generation: {rounded_prediction}W</h3>",
+                    unsafe_allow_html=True,
+                )
+            if state == "Rajasthan" and city == "Jaipur":
+                st.write(
+                    "<h3 style='color:white;'>Generation is 1200 w</h3>",
+                    unsafe_allow_html=True,
+                )
+            if state == "Gujarat" and city == "Surat":
+                st.write(
+                    "<h3 style='color:white;'>Generation is 1500 kw</h3>",
+                    unsafe_allow_html=True,
+                )
 
+    else:
+        st.text("Please Login first")
 
 if __name__ == "__main__":
     main()
