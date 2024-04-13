@@ -19,7 +19,7 @@ db = firestore.client()
 def app():
     
 # Usernm = []
-    st.title('Welcome to :violet[Final Year Project] :sunglasses:')
+    st.title('Welcome to Final Year Project :sunglasses:')
 
     if 'username' not in st.session_state:
         st.session_state.username = ''
