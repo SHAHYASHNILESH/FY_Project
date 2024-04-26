@@ -32,14 +32,14 @@ button_styles = """
             background-color: black;
             color:white;
             width:250px;
-            height:80px;
-            margin:10px;
+            height:50px;
+            margin-bottom:40px;
             border: 3px solid green;
             border-radius: 15px;
         }
     </style>
 """
-original_title = '<h1 style="font-family: serif; color:white; font-size: 36px;margin:15px;">Dashboard </h1>'
+original_title = '<h1 style="font-family: serif; color:white; font-size: 36px;margin-bottom:25px;">Dashboard </h1>'
 
 background_image = """
 <style>
@@ -69,13 +69,13 @@ def main():
             # Redirect to the prediction page
             st.experimental_set_query_params(page="prediction")
 
+        if st.button("Previous History", key="button4", type="primary"):
+            # Redirect to the account page
+            st.experimental_set_query_params(page="history")
+
         if st.button("Govt-Schemes", key="button3", type="primary"):
             # Redirect to the government schemes page
             st.experimental_set_query_params(page="govt_schemes")
-
-        if st.button("History", key="button4", type="primary"):
-            # Redirect to the account page
-            st.experimental_set_query_params(page="history")
 
         if st.button("Login/Sign-up", key="button5", type="primary"):
             # Redirect to the account page

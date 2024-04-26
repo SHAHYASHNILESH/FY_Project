@@ -40,7 +40,7 @@ model3 = load_model("C:/FY_Project/mobilenetv3_new.hdf5", compile=False)
 
 def display_defect_card(defect, logged_in_username):
     if defect["username"] == logged_in_username:
-        
+
         # Add horizontal rule
         st.markdown("------------------------")
         col2, col3 = st.columns([6, 3])
