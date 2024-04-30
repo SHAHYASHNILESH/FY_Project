@@ -88,6 +88,7 @@ def main():
             # Display the uploaded image
             image = Image.open(uploaded_file)
             st.image(image, caption="Uploaded Image", width=400)
+            
 
             # Detect defect
             prediction1 = detect_defect(image, "VGG")
