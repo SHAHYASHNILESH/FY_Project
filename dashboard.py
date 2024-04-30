@@ -1,6 +1,6 @@
 import streamlit as st
 import home, input
-import account, history
+import account, history, govscheme
 from firebase_admin import credentials, firestore, initialize_app, storage
 
 # if not firebase_admin._apps:
@@ -57,7 +57,7 @@ background_image = """
 def main():
     st.markdown(background_image, unsafe_allow_html=True)
     st.markdown(button_styles, unsafe_allow_html=True)
-    
+
     # Buttons with text in sidebar
     with st.sidebar:
         st.markdown(original_title, unsafe_allow_html=True)
@@ -97,6 +97,9 @@ def main():
         input.main()
     elif page == "history":
         history.main()
+    elif page == "govt_schemes":
+        govscheme.main()
+    
     # Add more elif conditions for other pages
 
 
