@@ -65,11 +65,11 @@ def display_defect_card(defect, logged_in_username):
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>If a solar panel is physically damaged, it will need to be repaired or replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>If a solar panel is physically damaged, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             elif defect["defect_class"] == "Snow-Covered":
@@ -83,7 +83,7 @@ def display_defect_card(defect, logged_in_username):
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
@@ -101,11 +101,11 @@ def display_defect_card(defect, logged_in_username):
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be repaired or replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             elif defect["defect_class"] == "Dusty":
@@ -119,7 +119,7 @@ def display_defect_card(defect, logged_in_username):
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
@@ -137,7 +137,7 @@ def display_defect_card(defect, logged_in_username):
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
@@ -148,7 +148,7 @@ def display_defect_card(defect, logged_in_username):
             try:
                 image_bytes = base64.b64decode(defect["image"])
                 image = Image.open(io.BytesIO(image_bytes))
-                st.image(image, caption="Uploaded Image", width=450)
+                st.image(image, caption="Uploaded Image", width=400)
             except Exception as e:
                 st.error("Error loading image: {}".format(e))
         st.markdown("---")

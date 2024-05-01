@@ -101,64 +101,168 @@ def pred(
 
 # Main Streamlit app
 def main():
-    st.title("Solar Power Generation Prediction Form")
+    st.title("Solar Power Generation Prediction")
     st.markdown(background_image, unsafe_allow_html=True)
     # User input for state and city
     # state = st.text_input("Enter State")
     # city = st.text_input("Enter City")
     # Define options for states and cities
     if st.session_state.username != "":
-        states = ["Maharashtra", "Gujarat", "Rajasthan"]  # Add your list of states here
-        cities = {
-            "Maharashtra": ["Mumbai", "Pune"],  # Add cities corresponding to each state
-            "Gujarat": ["Surat", "Ahmedabad"],
-            "Rajasthan": ["Jaipur", "Udaipur"],
-        }
+        states = [
+            "Andhra Pradesh",
+            "Arunachal Pradesh",
+            "Assam",
+            "Bihar",
+            "Chhattisgarh",
+            "Goa",
+            "Gujarat",
+            "Haryana",
+            "Himachal Pradesh",
+            "Jammu and Kashmir",
+            "Jharkhand",
+            "Karnataka",
+            "Kerala",
+            "Madhya Pradesh",
+            "Maharashtra",
+            "Manipur",
+            "Meghalaya",
+            "Mizoram",
+            "Nagaland",
+            "Odisha",
+            "Punjab",
+            "Rajasthan",
+            "Sikkim",
+            "Tamil Nadu",
+            "Telangana",
+            "Tripura",
+            "Uttarakhand",
+            "Uttar Pradesh",
+            "West Bengal",
+            "Andaman and Nicobar Islands",
+            "Chandigarh",
+            "Dadra and Nagar Haveli",
+            "Daman and Diu",
+            "Delhi",
+            "Lakshadweep",
+            "Puducherry",
+        ]
+        # cities = {
+        #     "Maharashtra": ["Mumbai", "Pune"],  # Add cities corresponding to each state
+        #     "Gujarat": ["Surat", "Ahmedabad"],
+        #     "Rajasthan": ["Jaipur", "Udaipur"],
+        # }
 
         # Create dropdowns for state and city
         state = st.selectbox("Select State", states)
-        city = st.selectbox("Select City", cities[state])
+        # city = st.selectbox("Select City", cities[state])
         # Inject CSS style for button
         st.markdown(button_styles, unsafe_allow_html=True)
 
         # Prediction button
-        
-        if st.button('Predict',type="secondary"):
-            if state == "Maharashtra" and city == "Mumbai":
-                prediction = pred(
-                    4461,
-                    1795087538,
-                    24.7412737999999,
-                    23.7866617999999,
-                    0.002838054505,
-                    65.9333333333333,
-                )
+
+        if st.button("Predict", type="secondary"):
+            if state == "Maharashtra" or state == "Goa":
+                # prediction = pred(
+                #     4461,
+                #     1795087538,
+                #     24.7412737999999,
+                #     23.7866617999999,
+                #     0.002838054505,
+                #     65.9333333333333,
+                # )
                 # Display predictions
                 # st.write("Linear Regression Prediction:", lr_prediction[0])
                 # st.write("Decision Tree Prediction:", dt_prediction[0])
                 # st.write("Random Forest Prediction:", rf_prediction[0])
                 # st.write("Average Prediction:", average_prediction[0])
                 # Round the prediction to 2 decimal places
-                rounded_prediction = round(prediction, 2)
+                # rounded_prediction = round(prediction, 2)
 
                 # Display the rounded prediction
+                # st.write(
+                #     f"<h3 style='color:white;'>Predicted Power generation: {rounded_prediction}W</h3>",
+                #     unsafe_allow_html=True,
+                # )
                 st.write(
-                    f"<h3 style='color:white;'>Predicted Power generation: {rounded_prediction}W</h3>",
+                    f"<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
                     unsafe_allow_html=True,
                 )
-            if state == "Rajasthan" and city == "Jaipur":
+            elif state == "Rajasthan":
                 st.write(
-                    "<h3 style='color:white;'>Generation is 1200 w</h3>",
+                    "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
                     unsafe_allow_html=True,
                 )
-            if state == "Gujarat" and city == "Surat":
+            elif state == "Gujarat":
                 st.write(
-                    "<h3 style='color:white;'>Generation is 1500 kw</h3>",
+                    "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
                     unsafe_allow_html=True,
                 )
+            elif state == "Delhi":
+                st.write(
+                    "<h3 style='color:white;'>Predicted Power generation/month:115 units(1 kg)</h3>",
+                    unsafe_allow_html=True,
+                )
+            elif state == "Jammu and Kashmir":
+                st.write(
+                    "<h3 style='color:white;'>Predicted Power generation/month:95 units(1 kg)</h3>",
+                    unsafe_allow_html=True,
+                )
+            elif (
+                state == "Himachal Pradesh"
+                or state == "Punjab"
+                or state == "Chandigarh"
+                or state == "Uttarakhand"
+            ):
+                st.write(
+                    "<h3 style='color:white;'>Predicted Power generation/month:110 units(1 kg)</h3>",
+                    unsafe_allow_html=True,
+                )
+            elif (
+                state == "Andhra Pradesh"
+                or state == "Karnataka"
+                or state == "Kerala"
+                or state == "Tamil Nadu"
+            ):
+                st.write(
+                    "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
+                    unsafe_allow_html=True,
+                )
+            elif (
+                state == "Uttar Pradesh"
+                or state == "Bihar"
+                or state == "Jharkhand"
+                or state == "Madhya Pradesh"
+            ):
+                st.write(
+                    "<h3 style='color:white;'>Predicted Power generation/month:122 units(1 kg)</h3>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.write(
+                    "<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
+                    unsafe_allow_html=True,
+                )
+
+            st.write(
+                "<h3 style='color:white;'>There are 2 major varieties available:</h3>",
+                unsafe_allow_html=True,
+            )
+            st.write(
+                "<h5 style='color:white;'>Rs. 18,000 is for solar panels which generate 550 Watt of electricity and weight is around 28kg.</h5>",
+                unsafe_allow_html=True,
+            )
+            st.write(
+                "<h5 style='color:white;'>Rs. 11,500 is for solar panels which generate 350 Watt of electricity and weight is around 28kg.</h5>",
+                unsafe_allow_html=True,
+            )
+            st.write(
+                "<h5 style='color:white;font-size:27px;'>For further inquiry, Contact: <a href='tel:+919422161101'>+91 94221 61101</a></h5>",
+                unsafe_allow_html=True,
+            )
 
     else:
         st.text("Please Login first")
+
 
 if __name__ == "__main__":
     main()

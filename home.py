@@ -121,11 +121,11 @@ def main():
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>If a solar panel is physically damaged, it will need to be repaired or replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>If a solar panel is physically damaged, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             
@@ -140,11 +140,11 @@ def main():
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be repaired or replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             
@@ -159,7 +159,7 @@ def main():
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
@@ -177,7 +177,7 @@ def main():
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
@@ -196,7 +196,7 @@ def main():
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Reparation Suggestion:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
