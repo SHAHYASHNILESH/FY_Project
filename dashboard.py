@@ -37,6 +37,13 @@ button_styles = """
             border: 3px solid green;
             border-radius: 15px;
         }
+        # .css-6qob1r {
+        #     width:120%;
+        #     background-color: red !important;
+        # }
+        # .css-uf99v8 {
+        #     background-color:white !important;
+        # }
     </style>
 """
 original_title = '<h1 style="font-family: serif; color:white; font-size: 36px;margin-bottom:25px;">Dashboard </h1>'
@@ -50,7 +57,7 @@ background_image = """
     background-repeat: no-repeat;
 }
 </style>
-"""
+# """
 
 
 # Main Streamlit app
@@ -99,7 +106,7 @@ def main():
         history.main()
     elif page == "govt_schemes":
         govscheme.main()
-    
+
     # Add more elif conditions for other pages
 
 

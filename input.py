@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 from joblib import load
+import requests
 from firebase_admin import credentials, firestore, initialize_app, storage
 
 # if not firebase_admin._apps:
@@ -99,13 +100,33 @@ def pred(
     return average_prediction[0]
 
 
+def get_weather(city_name, api_key="c30889904ca059fafc2004594b099a4e"):
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}&units=metric"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
+
+def get_weather_history(city_name, lat, lon, api_key="03653507e6754e49af8155133240305"):
+    url = f"http://api.worldweatheronline.com/premium/v1/weather.ashx?key={api_key}&q={city_name}&fx=no&cc=no&mca=yes&format=json"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
+
 # Main Streamlit app
 def main():
     st.title("Solar Power Generation Prediction")
     st.markdown(background_image, unsafe_allow_html=True)
+
     # User input for state and city
     # state = st.text_input("Enter State")
     # city = st.text_input("Enter City")
+
     # Define options for states and cities
     if st.session_state.username != "":
         states = [
@@ -259,6 +280,44 @@ def main():
                 "<h5 style='color:white;font-size:27px;'>For further inquiry, Contact: <a href='tel:+919422161101'>+91 94221 61101</a></h5>",
                 unsafe_allow_html=True,
             )
+
+        st.title("Weather App")
+
+        city_name = st.text_input("Enter city name:")
+        # api_key = st.text_input("Enter your OpenWeatherMap API key:")
+
+        if st.button("Get Weather"):
+            if city_name:
+                weather_data = get_weather(city_name)
+
+                if weather_data:
+                    st.write("Weather Data:")
+                    st.write(weather_data)
+
+                    # Extract latitude and longitude
+                    if "coord" in weather_data:
+                        lat = weather_data["coord"]["lat"]
+                        lon = weather_data["coord"]["lon"]
+                        # st.write(f"Latitude: {lat}, Longitude: {lon}")
+
+                    else:
+                        st.write("Latitude and longitude not found in response.")
+
+                    weather_history = get_weather_history(city_name, lat, lon)
+
+                    if weather_history:
+                        st.write("Weather History Data:")
+                        st.write(weather_history)
+                    else:
+                        st.write(
+                            "Failed to fetch weather history data. Please check your input and try again."
+                        )
+                else:
+                    st.write(
+                        "Failed to fetch weather data. Please check your input and try again."
+                    )
+            else:
+                st.write("Please enter both city name and API key.")
 
     else:
         st.text("Please Login first")
