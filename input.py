@@ -180,7 +180,8 @@ def main():
         # }
 
         # Create dropdowns for state and city
-        state = st.selectbox("Select State", states)
+        # state = st.selectbox("Select State", states)
+        state = st.text_input("Enter State")
         city_name = st.text_input("Enter your city")
         rooftop = st.text_input("Enter your roof-top area(in Sq.Feet)")
         shadow = st.text_input("Enter % of Shadow Free Open Space Available")
@@ -375,7 +376,7 @@ def main():
                     predictions = loaded_model.predict(new_data)
 
                     st.write("Predictions:")
-                    print(predictions)
+                    # print(predictions)
                     st.write(predictions)
 
                     # Plotting the graph
