@@ -3,6 +3,9 @@ import joblib
 import numpy as np
 from joblib import load
 import requests
+import pandas as pd
+import math
+import matplotlib.pyplot as plt
 from firebase_admin import credentials, firestore, initialize_app, storage
 
 # if not firebase_admin._apps:
@@ -123,6 +126,9 @@ def main():
     st.title("Solar Power Generation Prediction")
     st.markdown(background_image, unsafe_allow_html=True)
 
+    # Inject CSS style for button
+    st.markdown(button_styles, unsafe_allow_html=True)
+
     # User input for state and city
     # state = st.text_input("Enter State")
     # city = st.text_input("Enter City")
@@ -175,13 +181,38 @@ def main():
 
         # Create dropdowns for state and city
         state = st.selectbox("Select State", states)
+        city_name = st.text_input("Enter your city")
+        rooftop = st.text_input("Enter your roof-top area(in Sq.Feet)")
+        shadow = st.text_input("Enter % of Shadow Free Open Space Available")
+
+        # Assuming you have already collected the user inputs
+        rooftop_area_input = rooftop.strip()  # Remove leading and trailing spaces
+        shadow_percentage_input = shadow.strip()  # Remove leading and trailing spaces
+
+        # Check if the input is empty
+        if rooftop_area_input and shadow_percentage_input:
+            # Convert inputs to float
+            rooftop_area = float(rooftop_area_input)
+            shadow_percentage = float(shadow_percentage_input)
+
+            # Calculate shadowed area
+            shadow_area = (shadow_percentage / 100) * rooftop_area
+
+            # Calculate new rooftop area after subtracting shadowed area
+            new_rooftop_area = rooftop_area - shadow_area
+            new_rooftop_area_sqft = math.ceil(new_rooftop_area / 17.55)
+
         # city = st.selectbox("Select City", cities[state])
-        # Inject CSS style for button
-        st.markdown(button_styles, unsafe_allow_html=True)
 
         # Prediction button
-
         if st.button("Predict", type="secondary"):
+
+            # Display the new rooftop area
+            st.write(
+                f"<h3 style='color:white;'>New Rooftop Area after subtracting {shadow_percentage}% shadowed area: {new_rooftop_area_sqft:.2f}</h3>",
+                unsafe_allow_html=True,
+            )
+
             if state == "Maharashtra" or state == "Goa":
                 # prediction = pred(
                 #     4461,
@@ -281,18 +312,15 @@ def main():
                 unsafe_allow_html=True,
             )
 
-        st.title("Weather App")
+            # city_name = st.text_input("Enter city name:")
+            # api_key = st.text_input("Enter your OpenWeatherMap API key:")
 
-        city_name = st.text_input("Enter city name:")
-        # api_key = st.text_input("Enter your OpenWeatherMap API key:")
-
-        if st.button("Get Weather"):
             if city_name:
                 weather_data = get_weather(city_name)
 
                 if weather_data:
                     st.write("Weather Data:")
-                    st.write(weather_data)
+                    # st.write(weather_data)
 
                     # Extract latitude and longitude
                     if "coord" in weather_data:
@@ -307,11 +335,59 @@ def main():
 
                     if weather_history:
                         st.write("Weather History Data:")
-                        st.write(weather_history)
+                        # st.write(weather_history)
                     else:
                         st.write(
                             "Failed to fetch weather history data. Please check your input and try again."
                         )
+
+                    # Extracting absMaxTemp for each month
+                    Temp_array = [
+                        float(month_data["absMaxTemp"])
+                        for month_data in weather_history["data"]["ClimateAverages"][0][
+                            "month"
+                        ]
+                    ]
+                    st.write(Temp_array)
+
+                    # New array for sunlight hours
+                    sunlight_hrs = []
+                    # Iterate over the temperature array
+                    for t in Temp_array:
+                        if t < 30:
+                            sunlight_hrs.append(round(9 + 0.5 * (t - 30), 2))
+                        else:
+                            sunlight_hrs.append(round(10 + (t - 30), 2))
+
+                    # Printing the sunlight hours array
+                    st.write(sunlight_hrs)
+                    # Load the trained model
+                    loaded_model = joblib.load(
+                        "C:/FY_Project/linear_regression_model_new.pkl"
+                    )
+
+                    # Define new data with temperature and daylight hours
+                    new_data = pd.DataFrame(
+                        {"Temperature (°C)": Temp_array, "Daylight Hours": sunlight_hrs}
+                    )
+
+                    # Predict using the loaded model
+                    predictions = loaded_model.predict(new_data)
+
+                    st.write("Predictions:")
+                    print(predictions)
+                    st.write(predictions)
+
+                    # Plotting the graph
+                    plt.figure(figsize=(10, 6))
+                    plt.plot(predictions, label="Predictions")
+                    plt.xlabel("Month")
+                    plt.ylabel("Power Generation")
+                    plt.title(f"Predicted Power Generation/month for {city_name}")
+                    plt.legend()
+                    plt.grid(True)
+                    st.pyplot(plt)
+
                 else:
                     st.write(
                         "Failed to fetch weather data. Please check your input and try again."
