@@ -173,6 +173,7 @@ def main():
             "Lakshadweep",
             "Puducherry",
         ]
+
         # cities = {
         #     "Maharashtra": ["Mumbai", "Pune"],  # Add cities corresponding to each state
         #     "Gujarat": ["Surat", "Ahmedabad"],
@@ -320,7 +321,7 @@ def main():
                 weather_data = get_weather(city_name)
 
                 if weather_data:
-                    st.write("Weather Data:")
+                    # st.write("Weather Data:")
                     # st.write(weather_data)
 
                     # Extract latitude and longitude
@@ -375,13 +376,18 @@ def main():
                     # Predict using the loaded model
                     predictions = loaded_model.predict(new_data)
 
-                    st.write("Predictions:")
-                    # print(predictions)
-                    st.write(predictions)
+                    # Multiply each element of the predictions array by 30
+                    predictions_per_month = [
+                        prediction * 30 for prediction in predictions
+                    ]
+
+                    # Display the predictions per month
+                    st.write("Predicted Power Generation/month:")
+                    st.write(predictions_per_month)
 
                     # Plotting the graph
                     plt.figure(figsize=(10, 6))
-                    plt.plot(predictions, label="Predictions")
+                    plt.plot(predictions_per_month, label="Predictions")
                     plt.xlabel("Month")
                     plt.ylabel("Power Generation")
                     plt.title(f"Predicted Power Generation/month for {city_name}")
