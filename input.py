@@ -709,98 +709,96 @@ def main():
             new_rooftop_area = rooftop_area - shadow_area
             new_rooftop_area_sqft = math.ceil(new_rooftop_area / 17.55)
 
-        # city = st.selectbox("Select City", cities[state])
-
         # Prediction button
         if st.button("Predict", type="secondary"):
 
             # Display the new rooftop area
             st.write(
-                f"<h3 style='color:white;'>New Rooftop Area after subtracting {shadow_percentage}% shadowed area: {new_rooftop_area_sqft:.2f}</h3>",
+                f"<h3 style='color:white;'>Total number of solar panels required after subtracting {shadow_percentage}% shadowed area from total roof top area: {new_rooftop_area_sqft:.2f}</h3>",
                 unsafe_allow_html=True,
             )
 
-            if state == "Maharashtra" or state == "Goa":
-                # prediction = pred(
-                #     4461,
-                #     1795087538,
-                #     24.7412737999999,
-                #     23.7866617999999,
-                #     0.002838054505,
-                #     65.9333333333333,
-                # )
-                # Display predictions
-                # st.write("Linear Regression Prediction:", lr_prediction[0])
-                # st.write("Decision Tree Prediction:", dt_prediction[0])
-                # st.write("Random Forest Prediction:", rf_prediction[0])
-                # st.write("Average Prediction:", average_prediction[0])
-                # Round the prediction to 2 decimal places
-                # rounded_prediction = round(prediction, 2)
+            # if state == "Maharashtra" or state == "Goa":
+            #     # prediction = pred(
+            #     #     4461,
+            #     #     1795087538,
+            #     #     24.7412737999999,
+            #     #     23.7866617999999,
+            #     #     0.002838054505,
+            #     #     65.9333333333333,
+            #     # )
+            #     # Display predictions
+            #     # st.write("Linear Regression Prediction:", lr_prediction[0])
+            #     # st.write("Decision Tree Prediction:", dt_prediction[0])
+            #     # st.write("Random Forest Prediction:", rf_prediction[0])
+            #     # st.write("Average Prediction:", average_prediction[0])
+            #     # Round the prediction to 2 decimal places
+            #     # rounded_prediction = round(prediction, 2)
 
-                # Display the rounded prediction
-                # st.write(
-                #     f"<h3 style='color:white;'>Predicted Power generation: {rounded_prediction}W</h3>",
-                #     unsafe_allow_html=True,
-                # )
-                st.write(
-                    f"<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            elif state == "Rajasthan":
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            elif state == "Gujarat":
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            elif state == "Delhi":
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:115 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            elif state == "Jammu and Kashmir":
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:95 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            elif (
-                state == "Himachal Pradesh"
-                or state == "Punjab"
-                or state == "Chandigarh"
-                or state == "Uttarakhand"
-            ):
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:110 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            elif (
-                state == "Andhra Pradesh"
-                or state == "Karnataka"
-                or state == "Kerala"
-                or state == "Tamil Nadu"
-            ):
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            elif (
-                state == "Uttar Pradesh"
-                or state == "Bihar"
-                or state == "Jharkhand"
-                or state == "Madhya Pradesh"
-            ):
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:122 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.write(
-                    "<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
-                    unsafe_allow_html=True,
-                )
+            #     # Display the rounded prediction
+            #     # st.write(
+            #     #     f"<h3 style='color:white;'>Predicted Power generation: {rounded_prediction}W</h3>",
+            #     #     unsafe_allow_html=True,
+            #     # )
+            #     st.write(
+            #         f"<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # elif state == "Rajasthan":
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # elif state == "Gujarat":
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # elif state == "Delhi":
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:115 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # elif state == "Jammu and Kashmir":
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:95 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # elif (
+            #     state == "Himachal Pradesh"
+            #     or state == "Punjab"
+            #     or state == "Chandigarh"
+            #     or state == "Uttarakhand"
+            # ):
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:110 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # elif (
+            #     state == "Andhra Pradesh"
+            #     or state == "Karnataka"
+            #     or state == "Kerala"
+            #     or state == "Tamil Nadu"
+            # ):
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # elif (
+            #     state == "Uttar Pradesh"
+            #     or state == "Bihar"
+            #     or state == "Jharkhand"
+            #     or state == "Madhya Pradesh"
+            # ):
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:122 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
+            # else:
+            #     st.write(
+            #         "<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
+            #         unsafe_allow_html=True,
+            #     )
 
             st.write(
                 "<h3 style='color:white;'>There are 2 major varieties available:</h3>",
@@ -889,6 +887,24 @@ def main():
                     # Display the predictions per month
                     st.write("Predicted Power Generation/month:")
                     st.write(predictions_per_month)
+
+                    # Calculate sum of predictions per month
+                    total_predictions = sum(predictions_per_month)
+
+                    # Display sum
+                    st.write(
+                        f"<h3 style='color:white;'>Total Power Generation/year(per panel):{total_predictions:.2f} units.</h3>",
+                        unsafe_allow_html=True,
+                    )
+
+                    # Multiply total predictions by new rooftop area
+                    total_energy_generation = total_predictions * new_rooftop_area_sqft
+
+                    # Display total energy generation
+                    st.write(
+                        f"<h3 style='color:white;'>Total Power Generation/year:{total_energy_generation:.2f} units.</h3>",
+                        unsafe_allow_html=True,
+                    )
 
                     # Plotting the graph
                     plt.figure(figsize=(10, 6))
