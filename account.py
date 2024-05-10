@@ -146,7 +146,7 @@ def app():
 
     if st.session_state.signout:
         st.text("Username: " + st.session_state.username)
-        st.text("Email id: " + st.session_state.useremail)
+        st.text("Email-id: " + st.session_state.useremail)
         st.button("Log out", on_click=t)
 
     def ap():

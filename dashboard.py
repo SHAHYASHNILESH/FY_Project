@@ -59,9 +59,9 @@ button_styles = """
             width:100%;
             background-color: #31363F;
         }
-        .css-uf99v8 {
-            background-color:white !important;
-        }
+        # .css-uf99v8 {
+        #     background-color:white !important;
+        # }
         .css-1nm2qww{
             background-color: #FFFFFF
         }
@@ -82,11 +82,17 @@ button_styles = """
             font-size:50px !important;
             margin-bottom:20px;
         }
-        .st-dn{
+        .st-dk{
             font-size:150%;
         }
         .st-cd{
             font-size:150%;
+        }
+        [data-testid="stAppViewContainer"] > .main{
+            background-image: url("https://opc-dc.gov/wp-content/uploads/2022/05/istockphoto-1247794854-612x612-1.jpg");
+            background-size: 100vw 100vh;  # This sets the size to cover 100% of the viewport width and height
+            background-position: center;  
+            background-repeat: no-repeat;
         }
 
     </style>
@@ -128,7 +134,7 @@ def main():
     # Buttons with text in sidebar
     with st.sidebar:
         st.markdown(original_title, unsafe_allow_html=True)
-        
+
         if st.button("Upload image", key="button1", type="primary"):
             # Redirect to the home page
             st.experimental_set_query_params(page="home")
@@ -144,7 +150,7 @@ def main():
         if st.button("Govt Schemes", key="button3", type="primary"):
             # Redirect to the government schemes page
             st.experimental_set_query_params(page="govt_schemes")
-        
+
         if st.button("Login/Sign-up", key="button5", type="primary"):
             # Redirect to the account page
             st.experimental_set_query_params(page="account")

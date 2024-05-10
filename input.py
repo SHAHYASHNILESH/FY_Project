@@ -71,6 +71,11 @@ button_styles = """
             width:100% !important;
             align-items:center;
         }
+        [data-testid="stAppViewContainer"] > .main{
+            background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUSEhIVFRUVFxcVFxcXFxcaFxcVFRcXFxUXFRcYHSggGBolHRUXITEiJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDisZFRk3LSsrNysrKystKy0rKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALcBEwMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAACAQADB//EAB4QAQEBAQEAAgMBAAAAAAAAAAABEQISgfBRcZEx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A8oirFVlIrSFgJFxcWQExYuKCYshYuAmNIUi4A4vlauAmNiz/AFcAcXFkXAHGwkAbEw8TACxsPEBzxrDxMAKNPEoOeMViWAI0sYBSwkAWXGAoyQpAWLEhA2FGiyA0irFgJhSNIsgNIsi4oCuLiyAMWFi+RRxsLGwBawsawAxsPEwAsSw8QQLEsPBsALBp2JYAYNOpQAcMaA1KVggjMoKuKsBoUSHAZY0hYDRcWRZAWRY0iwGxrFYElKMUBFnK+SkFGoWNgDIxWNYAISAKWFiWCDRq1KAjTTACwa6WBQBCqUBsGlUqg6rMgUXEiqFCGQ5EFhRIsAljSLAUh5OA0WxlAcJcXmAkhRJFBlxVooWIeJQCxCqCA1WpQCpYSANiWQrBoDYFOjQCxKVg1QEp0QHGVgJtTkoCylEixA+aXIwpAKLBKAUKDCgKUEgZcZQbFitgqFUiwGqWENEGxFSgKUhAaNKoAotQBGmFAaNLoelBRaNBmT5YFhJCgLF5aKgpRIUAosiQoCw5BhQFVFgFixIUoKuDDgo2LKrUEGlI1EBsKjoDg0hoDaNKwbAQaVAEqUqFBKNIaoNg0qNAWZgKFAhwChQIcqBQoBQChhDgLiz9soLFgrAOLBigcUdWASprCqKpREsFfv38pQTBpYNAaNMKA0aVGgKVbEoDRtKwaoNGlRoIyMCw4EIChQIUqBwoEOAUKDFlA4UDS0C1aOrAUkSAcXQ1dA5W9C2gUa1NS0FtBalBEtaoDC1S0EoqNBKJDVBSrUoDRxUoJ/WZgaLBhQChQYsA10YUQItDSgHKQRYBtEUCiwC5oLF0WgEQ6loHo2po2gWoyaC2ilTQa0dWoCUV1LQSi1qKNRq9BQbRq6lBGZgQhXQOFHOFED1eQhyAcUSlBdXRlWAfJSucq6DpqyufJSgbaHprQPWGVAJrR1qBDqa2g2o2pQYda1NBhtbUtUZEsQGo2tUoMlSNQTWRgZZRiygUpQJSiDpysoRYocLXOUpUDjDKsoEsFQIvQa0oHKwxgPW0dTQNNRtBWHWBqlbR0GStRqi1KkTQa1K2paCI1qUGqVKwN8smsCKzILqxmAtWVmAljMoq6zAsVmQXVlZgW9NazAkrarA2pemYG1tZlBvQyswMjMCaNrMCVKzAmozAw2swJjMwP//Z);
+            background-size: 100vw 100vh;
+            background-repeat: no-repeat;
+        }
     </style>
 """
 background_image = """
@@ -921,7 +926,7 @@ def main():
                     )
 
                     # Plotting the graph
-                    plt.figure(figsize=(7, 2))
+                    plt.figure(figsize=(7, 3))
                     plt.plot(predictions_per_month, label="Predictions")
                     plt.xlabel("Month")
                     plt.ylabel("Power Generation")

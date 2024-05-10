@@ -59,9 +59,22 @@ button_styles = """
     </style>
 """
 
+# background_image = """
+# <style>
+# [data-testid="stAppViewContainer"] > .main {
+#     background-image: url("https://png.pngtree.com/thumb_back/fh260/back_our/20190620/ourmid/pngtree-gradient-silhouette-people-s-name-government-board-poster-background-material-image_144469.jpg");
+#     background-size: 100vw 100vh;  # This sets the size to cover 100% of the viewport width and height
+#     background-position: center;
+#     background-repeat: no-repeat;
+# }
+# </style>
+# # """
+
+
 # Streamlit app
 def main():
-    st.markdown(button_styles,unsafe_allow_html=True)
+    st.markdown(button_styles, unsafe_allow_html=True)
+    # st.markdown(background_image, unsafe_allow_html=True)
 
     st.title("Government Schemes")
 
