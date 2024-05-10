@@ -17,8 +17,62 @@ class_names = [
     "Physical-Damage",
     "Snow-Covered",
 ]
+button_styles = """
+    <style>
+        .css-16idsys p {
+            margin-bottom: 0px;
+            font-size: 35px;
+            color: #FFFFFF;
+            font-weight: bolder;
+            margin-top: -30px;
+        }
+        .css-5rimss p {
+            word-break: break-word;
+            color: #FFFFFF;
+            font-size: 35px;
+            font-weight: bolder;
+            margin-bottom: -10px;
+            margin-top: -60px;
+        }
 
+        .css-10trblm.eqr7zpz0 {
+            color: #FFFFFF;
+            font-size:40px
+        }
+        element.style {
+            margin-left: 15px;
+            color: white;
+            font-weight: bolder;
+            font-size: 30px;
+            margin-bottom: 7px;
+            margin-left: -1px;
+        }
+        .css-1uixxvy {
+            margin-right: 0.5rem;
+            margin-bottom: 0.25rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 30px;
+            color: #FFFFFF;
+        }
+        .css-1y4p8pa{
+            max-width:none;
+            padding-left:7rem;
+            padding-top:0px;
+        }
+    </style>
+"""
 
+background_image = """
+<style>
+[data-testid="stAppViewContainer"] > .main {
+    background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20210903/pngtree-cloud-computing-concept-with-download-and-upload-data-streaming-background-design-image_778826.jpg");
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+}
+</style>
+# """
 # Initialize Firebase
 if not firebase_admin._apps:
     # Initialize Firebase
@@ -77,9 +131,11 @@ def display_defect_card(defect):
 # Streamlit app
 def main():
     st.title("Solar Panel Defect Detection")
+    # st.markdown(background_image, unsafe_allow_html=True)
+    st.markdown(button_styles, unsafe_allow_html=True)
 
     if st.session_state.username != "":
-        st.write("Upload an image of solar panel to detect defects.")
+
         uploaded_file = st.file_uploader(
             "Choose an image:", type=["jpg", "jpeg", "png"]
         )
@@ -88,7 +144,6 @@ def main():
             # Display the uploaded image
             image = Image.open(uploaded_file)
             st.image(image, caption="Uploaded Image", width=400)
-            
 
             # Detect defect
             prediction1 = detect_defect(image, "VGG")
@@ -108,7 +163,12 @@ def main():
             majority_class_name = class_names[majority_index]
 
             # print(uploaded_file)
-            st.write("<div style='color:white;text-decoration:underline;'><h5>Defect Detected:</h5></div><div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:7px;'>{}</div>".format(majority_class_name), unsafe_allow_html=True)
+            st.write(
+                "<div style='color:white;text-decoration:underline;'><h5>Defect Detected:</h5></div><div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;margin-bottom:7px;'>{}</div>".format(
+                    majority_class_name
+                ),
+                unsafe_allow_html=True,
+            )
 
             if majority_class_name == "Physical-Damage":
                 st.write(
@@ -116,7 +176,7 @@ def main():
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:7px;'><b><i>Physical damage refers to any kind of harm or impairment to the solar panel structure or components caused by external forces.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;margin-bottom:7px;'><b><i>Physical damage refers to any kind of harm or impairment to the solar panel structure or components caused by external forces.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
@@ -125,17 +185,17 @@ def main():
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>If a solar panel is physically damaged, it will need to be replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;;margin-bottom:5px;'><b><i>If a solar panel is physically damaged, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
-            
+
             elif majority_class_name == "Electrical-damage":
                 st.write(
                     "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:7px;'><b><i>Electrical damage involves faults or malfunctions in the electrical components of the solar panel system.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;margin-bottom:7px;'><b><i>Electrical damage involves faults or malfunctions in the electrical components of the solar panel system.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
@@ -144,17 +204,17 @@ def main():
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;;margin-bottom:5px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
-            
+
             elif majority_class_name == "Dusty":
                 st.write(
                     "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:7px;'><b><i>Dust and dirt particles settle on the surface of the panels, blocking sunlight and reducing the amount of light absorbed by the photovoltaic cells.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;;margin-bottom:7px;'><b><i>Dust and dirt particles settle on the surface of the panels, blocking sunlight and reducing the amount of light absorbed by the photovoltaic cells.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
@@ -163,7 +223,7 @@ def main():
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>It is important to clean solar panels regularly to remove any dirt or debris that has accumulated.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;;margin-bottom:5px;'><b><i>It is important to clean solar panels regularly to remove any dirt or debris that has accumulated.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             elif majority_class_name == "Bird-drop":
@@ -172,7 +232,7 @@ def main():
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:7px;'><b><i>Bird droppings or bird poop can land on the surface of solar panels and create shading or soiling issues.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;;margin-bottom:7px;'><b><i>Bird droppings or bird poop can land on the surface of solar panels and create shading or soiling issues.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
@@ -181,17 +241,17 @@ def main():
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:5px;'><b><i>It is important to clean bird droppings off of solar panels as soon as possible.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;;margin-bottom:5px;'><b><i>It is important to clean bird droppings off of solar panels as soon as possible.</i></b></div>",
                     unsafe_allow_html=True,
                 )
-            
+
             elif majority_class_name == "Snow-Covered":
                 st.write(
                     "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:7px;'><b><i>Snow accumulation on solar panels can significantly reduce their energy production.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;margin-bottom:7px;'><b><i>Snow accumulation on solar panels can significantly reduce their energy production.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
@@ -200,7 +260,7 @@ def main():
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:5px;'><b><i>If there is a lot of snow, it may be necessary to remove it manually.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:25px;margin-bottom:5px;'><b><i>If there is a lot of snow, it may be necessary to remove it manually.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 

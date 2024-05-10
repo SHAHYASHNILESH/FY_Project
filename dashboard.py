@@ -1,6 +1,9 @@
 import streamlit as st
-import home, input
-import account, history, govscheme
+import home
+import input
+import account
+import history
+import govscheme
 from firebase_admin import credentials, firestore, initialize_app, storage
 
 # if not firebase_admin._apps:
@@ -14,39 +17,95 @@ from firebase_admin import credentials, firestore, initialize_app, storage
 # Define CSS styles for buttons and hover effects
 button_styles = """
     <style>
-        .orange-button {
-            background-color: green;
-            color: white;
-            border: 2px solid green;
-            border-radius: 5px;
-            margin-top:15px;
-            font-size: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .orange-button:hover {
-            background-color: white;
-            color: green;
-        }
         button[kind="primary"] {
-            background-color: black;
-            color:white;
-            width:250px;
-            height:50px;
-            margin-bottom:40px;
-            border: 3px solid green;
+            background:#B4B4B8;
+            text-align:left;
+            color:black;
+            width:100%;
+            border: 3px solid black;
             border-radius: 15px;
+            font-size:50px;
+            margin-bottom:25%;
         }
-        # .css-6qob1r {
-        #     width:120%;
-        #     background-color: red !important;
+        # button[kind="primary"].active {
+        #     background-color: #FFFFFF !important; 
+        #     color: black !important;
         # }
-        # .css-uf99v8 {
-        #     background-color:white !important;
-        # }
+        .css-x78sv8 p{
+            font-size:30px;
+            
+        }
+        .css-183lzff {
+            font-family: "Source Code Pro", monospace;
+            white-space: pre;
+            font-size: 30px;
+            overflow-x: auto;
+            color:#FFFFFF;
+        }
+        .stButton>button:hover, .stButton>button:focus {
+            background-color: #FFFFFF !important; 
+            color: black !important;
+        }
+
+        .css-183lzff {
+            font-family: sans-serif;
+            white-space: pre;
+            font-size: 30px;
+            overflow-x: auto;
+            color: #FFFFFF;
+            font-weight:bolder;
+        }
+        .css-6qob1r {
+            width:100%;
+            background-color: #31363F;
+        }
+        .css-uf99v8 {
+            background-color:white !important;
+        }
+        .css-1nm2qww{
+            background-color: #FFFFFF
+        }
+        .css-16idsys p {
+            margin-bottom: 0px;
+            font-size: 30px;
+            color: #FFFFFF;
+            font-weight:bolder;
+        }
+        .css-q8sbsg p{
+            font-size:35px !important;
+        }
+        .css-6qob1r {
+            width:120%;
+            # background-color:#37b610 !important;
+        }
+        .css-nahz7x p {
+            font-size:50px !important;
+            margin-bottom:20px;
+        }
+        .st-dn{
+            font-size:150%;
+        }
+        .st-cd{
+            font-size:150%;
+        }
+
     </style>
 """
-original_title = '<h1 style="font-family: serif; color:white; font-size: 36px;margin-bottom:25px;">Dashboard </h1>'
+original_title = '<p style="font-family: serif; color:white; font-size: 36px;margin-top:-30px;">Dashboard </p>'
+
+highlight_button_script = """
+<script>
+    const buttons = document.querySelectorAll('button[kind="primary"]');
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+</script>
+"""
 
 background_image = """
 <style>
@@ -64,26 +123,28 @@ background_image = """
 def main():
     st.markdown(background_image, unsafe_allow_html=True)
     st.markdown(button_styles, unsafe_allow_html=True)
+    # st.markdown(highlight_button_script, unsafe_allow_html=True)
 
     # Buttons with text in sidebar
     with st.sidebar:
         st.markdown(original_title, unsafe_allow_html=True)
-        if st.button("Upload Image", key="button1", type="primary"):
+        
+        if st.button("Upload image", key="button1", type="primary"):
             # Redirect to the home page
             st.experimental_set_query_params(page="home")
 
-        if st.button("Power Prediction", key="button2", type="primary"):
+        if st.button("Power prediction", key="button2", type="primary"):
             # Redirect to the prediction page
             st.experimental_set_query_params(page="prediction")
 
-        if st.button("Previous History", key="button4", type="primary"):
+        if st.button("Previous history", key="button4", type="primary"):
             # Redirect to the account page
             st.experimental_set_query_params(page="history")
 
-        if st.button("Govt-Schemes", key="button3", type="primary"):
+        if st.button("Govt Schemes", key="button3", type="primary"):
             # Redirect to the government schemes page
             st.experimental_set_query_params(page="govt_schemes")
-
+        
         if st.button("Login/Sign-up", key="button5", type="primary"):
             # Redirect to the account page
             st.experimental_set_query_params(page="account")

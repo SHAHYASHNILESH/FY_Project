@@ -19,7 +19,7 @@ db = firestore.client()
 def app():
 
     # Usernm = []
-    st.title("Welcome to Final Year Project :sunglasses:")
+    st.title("Solar Panel Defect Detection using CV")
 
     if "username" not in st.session_state:
         st.session_state.username = ""
@@ -145,9 +145,9 @@ def app():
             st.button("Login", on_click=f)
 
     if st.session_state.signout:
-        st.text("Name " + st.session_state.username)
+        st.text("Username: " + st.session_state.username)
         st.text("Email id: " + st.session_state.useremail)
-        st.button("Sign out", on_click=t)
+        st.button("Log out", on_click=t)
 
     def ap():
         st.write("Posts")

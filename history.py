@@ -18,6 +18,53 @@ class_names = [
     "Snow-Covered",
 ]
 
+button_styles = """
+    <style>
+        .css-16idsys p {
+            margin-bottom: 0px;
+            font-size: 35px;
+            color: #FFFFFF;
+            font-weight: bolder;
+            margin-top: -30px;
+        }
+        .css-5rimss p {
+            word-break: break-word;
+            color: #FFFFFF;
+            font-size: 35px;
+            font-weight: bolder;
+            margin-bottom: -10px;
+            margin-top: -60px;
+        }
+
+        .css-10trblm.eqr7zpz0 {
+            color: #FFFFFF;
+            font-size:40px
+        }
+        element.style {
+            margin-left: 15px;
+            color: white;
+            font-weight: bolder;
+            font-size: 30px;
+            margin-bottom: 7px;
+            margin-left: -1px;
+        }
+        .css-1uixxvy {
+            margin-right: 0.5rem;
+            margin-bottom: 0.25rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 30px;
+            color: #FFFFFF;
+        }
+        .css-1y4p8pa{
+            max-width:none;
+            padding-left:7rem;
+            padding-top:0px;
+        }
+    </style>
+"""
+
 
 # Initialize Firebase
 # cred = credentials.Certificate("fy-project-a9188-c7e54655ad87.json")
@@ -47,101 +94,101 @@ def display_defect_card(defect, logged_in_username):
 
         with col2:
             st.write(
-                "<div style='color:white;text-decoration:underline;'><h5>Detected Defect:</h5></div>",
+                "<div style='color:white;text-decoration:underline;'><h2>Detected Defect:</h2></div>",
                 unsafe_allow_html=True,
             )
             st.write(
-                f"<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px; margin-bottom:7px;'><b><i>{defect['defect_class']}</i></b></div>",
+                f"<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px; margin-bottom:7px;'><b><i>{defect['defect_class']}</i></b></div>",
                 unsafe_allow_html=True,
             )
             if defect["defect_class"] == "Physical-Damage":
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Defect Description:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:7px;'><b><i>Physical damage refers to any kind of harm or impairment to the solar panel structure or components caused by external forces.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;margin-bottom:7px;'><b><i>Physical damage refers to any kind of harm or impairment to the solar panel structure or components caused by external forces.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Remedies:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>If a solar panel is physically damaged, it will need to be replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;'><b><i>If a solar panel is physically damaged, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             elif defect["defect_class"] == "Snow-Covered":
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Defect Description:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:7px;'><b><i>Snow accumulation on solar panels can significantly reduce their energy production.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;margin-bottom:7px;'><b><i>Snow accumulation on solar panels can significantly reduce their energy production.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Remedies:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>If there is a lot of snow, it may be necessary to remove it manually.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;'><b><i>If there is a lot of snow, it may be necessary to remove it manually.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             elif defect["defect_class"] == "Electrical-damage":
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Defect Description:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;margin-bottom:7px;'><b><i>Electrical damage involves faults or malfunctions in the electrical components of the solar panel system.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;margin-bottom:7px;'><b><i>Electrical damage involves faults or malfunctions in the electrical components of the solar panel system.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Remedies:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be replaced.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;'><b><i>If a solar panel is damaged by electrical damage, it will need to be replaced.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             elif defect["defect_class"] == "Dusty":
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Defect Description:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:7px;'><b><i>Dust and dirt particles settle on the surface of the panels, blocking sunlight and reducing the amount of light absorbed by the photovoltaic cells.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;;margin-bottom:7px;'><b><i>Dust and dirt particles settle on the surface of the panels, blocking sunlight and reducing the amount of light absorbed by the photovoltaic cells.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Remedies:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>It is important to clean solar panels regularly to remove any dirt or debris that has accumulated.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;'><b><i>It is important to clean solar panels regularly to remove any dirt or debris that has accumulated.</i></b></div>",
                     unsafe_allow_html=True,
                 )
             elif defect["defect_class"] == "Bird-drop":
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Defect Description:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Defect Description:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;;margin-bottom:7px;'><b><i>Bird droppings or bird poop can land on the surface of solar panels and create shading or soiling issues.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;;margin-bottom:7px;'><b><i>Bird droppings or bird poop can land on the surface of solar panels and create shading or soiling issues.</i></b></div>",
                     unsafe_allow_html=True,
                 )
 
                 st.write(
-                    "<div style='color:white;text-decoration:underline;'><h5>Remedies:</h5></div>",
+                    "<div style='color:white;text-decoration:underline;'><h2>Remedies:</h2></div>",
                     unsafe_allow_html=True,
                 )
                 st.write(
-                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:18px;'><b><i>It is important to clean bird droppings off of solar panels as soon as possible.</i></b></div>",
+                    "<div style='margin-left: 15px; color: white;font-weight:500;font-size:30px;'><b><i>It is important to clean bird droppings off of solar panels as soon as possible.</i></b></div>",
                     unsafe_allow_html=True,
                 )
         with col3:
@@ -157,6 +204,8 @@ def display_defect_card(defect, logged_in_username):
 # Streamlit app
 def main():
     st.title("Previous History")
+    st.markdown(button_styles, unsafe_allow_html=True)
+    
 
     if st.session_state.username != "":
         # st.header("Recent Defects")

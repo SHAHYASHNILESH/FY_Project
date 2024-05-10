@@ -20,34 +20,63 @@ from firebase_admin import credentials, firestore, initialize_app, storage
 # CSS style for prediction button
 button_styles = """
     <style>
-        .orange-button {
-            background-color: green;
-            color: white;
-            border: 2px solid green;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .orange-button:hover {
-            background-color: white;
-            color: green;
-        }
         button[kind="secondary"] {
             background-color: black;
             color:white;
-            width:100px;
+            width:7%;
             margin:10px;
-            border: 3px solid green;
+            border: 2px solid white;
             border-radius: 15px;
+        }
+
+        .css-1y4p8pa{
+            max-width:none;
+            padding-left:7rem;
+            padding-top:0px;
+        }
+
+        .css-k7vsyb span{
+            color: #FFFFFF;
+            font-size: 40px;
+        }
+
+        .css-16idsys p {
+            word-break: break-word;
+            margin-bottom: -1px;
+            font-size: 35px;
+            color: black;
+            font-weight: bolder;
+        }
+        .css-1vbkxwb p {
+            word-break: break-word;
+            margin-bottom: 0px;
+            font-size: 20px;
+
+        }
+        .css-10trblm {
+            position: relative;
+            flex: 1 1 0%;
+            margin-left: calc(3rem);
+            color: black;
+            font-weight: bolder;
+            font-size: 30px;
+        }
+        .st-dn{
+            font-size:150%;
+        }
+        .st-cd{
+            font-size:150%;
+        }
+        img{
+            width:100% !important;
+            align-items:center;
         }
     </style>
 """
 background_image = """
 <style>
 [data-testid="stAppViewContainer"] > .main {
-    background-image: url("https://opc-dc.gov/wp-content/uploads/2022/05/istockphoto-1247794854-612x612-1.jpg");
+    background-image: url("https://t3.ftcdn.net/jpg/05/54/51/40/360_F_554514065_A5Y17mmaZgxkbcKri1g52RrLDtLzOU54.jpg");
     background-size: 100vw 100vh;  # This sets the size to cover 100% of the viewport width and height
     background-position: center;  
     background-repeat: no-repeat;
@@ -69,20 +98,6 @@ def pred(
     dt_model = joblib.load("C:/FY_Project/decision_tree_model.pkl")
     rf_model = joblib.load("C:/FY_Project/random_forest_model.pkl")
 
-    # # Sidebar with user input
-    # st.sidebar.title("Input Parameters")
-    # irradiation = st.sidebar.number_input("IRRADIATION", value=0.002838054505)
-    # daily_yield = st.sidebar.number_input("DAILY YIELD", value=4461)
-    # module_temperature = st.sidebar.number_input(
-    #         "MODULE TEMPERATURE", value=23.7866617999999
-    # )
-    # ambient_temperature = st.sidebar.number_input(
-    #         "AMBIENT TEMPERATURE", value=24.7412737999999
-    # )
-    # total_yield = st.sidebar.number_input("TOTAL YIELD", value=1795087538)
-    # dc_power = st.sidebar.number_input("DC POWER", value=65.9333333333333)
-
-    # Create testing data
     testing_new = np.array(
         [
             daily_yield,
@@ -124,7 +139,8 @@ def get_weather_history(city_name, lat, lon, api_key="03653507e6754e49af81551332
 # Main Streamlit app
 def main():
     st.title("Solar Power Generation Prediction")
-    st.markdown(background_image, unsafe_allow_html=True)
+    # st.markdown(background_image, unsafe_allow_html=True)
+    st.markdown(button_styles, unsafe_allow_html=True)
 
     # Inject CSS style for button
     st.markdown(button_styles, unsafe_allow_html=True)
@@ -800,25 +816,22 @@ def main():
             #         unsafe_allow_html=True,
             #     )
 
-            st.write(
-                "<h3 style='color:white;'>There are 2 major varieties available:</h3>",
-                unsafe_allow_html=True,
-            )
-            st.write(
-                "<h5 style='color:white;'>Rs. 18,000 is for solar panels which generate 550 Watt of electricity and weight is around 28kg.</h5>",
-                unsafe_allow_html=True,
-            )
-            st.write(
-                "<h5 style='color:white;'>Rs. 11,500 is for solar panels which generate 350 Watt of electricity and weight is around 28kg.</h5>",
-                unsafe_allow_html=True,
-            )
-            st.write(
-                "<h5 style='color:white;font-size:27px;'>For further inquiry, Contact: <a href='tel:+919422161101'>+91 94221 61101</a></h5>",
-                unsafe_allow_html=True,
-            )
-
-            # city_name = st.text_input("Enter city name:")
-            # api_key = st.text_input("Enter your OpenWeatherMap API key:")
+            # st.write(
+            #     "<h3 style='color:white;'>There are 2 major varieties available:</h3>",
+            #     unsafe_allow_html=True,
+            # )
+            # st.write(
+            #     "<h5 style='color:white;'>Rs. 18,000 is for solar panels which generate 550 Watt of electricity and weight is around 28kg.</h5>",
+            #     unsafe_allow_html=True,
+            # )
+            # st.write(
+            #     "<h5 style='color:white;'>Rs. 11,500 is for solar panels which generate 350 Watt of electricity and weight is around 28kg.</h5>",
+            #     unsafe_allow_html=True,
+            # )
+            # st.write(
+            #     "<h5 style='color:white;font-size:27px;'>For further inquiry, Contact: <a href='tel:+919422161101'>+91 94221 61101</a></h5>",
+            #     unsafe_allow_html=True,
+            # )
 
             if city_name:
                 weather_data = get_weather(city_name)
@@ -839,8 +852,9 @@ def main():
                     weather_history = get_weather_history(city_name, lat, lon)
 
                     if weather_history:
-                        st.write("Weather History Data:")
+                        # st.write("Weather History Data:")
                         # st.write(weather_history)
+                        print("aa")
                     else:
                         st.write(
                             "Failed to fetch weather history data. Please check your input and try again."
@@ -853,7 +867,7 @@ def main():
                             "month"
                         ]
                     ]
-                    st.write(Temp_array)
+                    # st.write(Temp_array)
 
                     # New array for sunlight hours
                     sunlight_hrs = []
@@ -865,7 +879,7 @@ def main():
                             sunlight_hrs.append(round(10 + (t - 30), 2))
 
                     # Printing the sunlight hours array
-                    st.write(sunlight_hrs)
+                    # st.write(sunlight_hrs)
                     # Load the trained model
                     loaded_model = joblib.load(
                         "C:/FY_Project/linear_regression_model_new.pkl"
@@ -885,8 +899,8 @@ def main():
                     ]
 
                     # Display the predictions per month
-                    st.write("Predicted Power Generation/month:")
-                    st.write(predictions_per_month)
+                    # st.write("Predicted Power Generation/month:")
+                    # st.write(predictions_per_month)
 
                     # Calculate sum of predictions per month
                     total_predictions = sum(predictions_per_month)
@@ -907,7 +921,7 @@ def main():
                     )
 
                     # Plotting the graph
-                    plt.figure(figsize=(10, 6))
+                    plt.figure(figsize=(7, 2))
                     plt.plot(predictions_per_month, label="Predictions")
                     plt.xlabel("Month")
                     plt.ylabel("Power Generation")
