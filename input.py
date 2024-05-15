@@ -5,7 +5,14 @@ from joblib import load
 import requests
 import pandas as pd
 import math
+import matplotlib
 import matplotlib.pyplot as plt
+import plotly.graph_objs as go
+import time
+import plotly.express as px
+
+matplotlib.use("TkAgg")  # Set the backend to TkAgg
+import mplcursors
 from firebase_admin import credentials, firestore, initialize_app, storage
 
 # if not firebase_admin._apps:
@@ -68,7 +75,7 @@ button_styles = """
             font-size:150%;
         }
         img{
-            width:100% !important;
+            width:150% !important;
             align-items:center;
         }
         [data-testid="stAppViewContainer"] > .main{
@@ -132,9 +139,9 @@ def get_weather(city_name, api_key="c30889904ca059fafc2004594b099a4e"):
         return None
 
 
-def get_weather_history(city_name, lat, lon, api_key="03653507e6754e49af8155133240305"):
+def get_weather_history(city_name,api_key="0d4122627da444959fa105007241205"):
     url = f"http://api.worldweatheronline.com/premium/v1/weather.ashx?key={api_key}&q={city_name}&fx=no&cc=no&mca=yes&format=json"
-    response = requests.get(url)
+    response = requests.get(url,timeout=10)
     if response.status_code == 200:
         return response.json()
     else:
@@ -710,8 +717,8 @@ def main():
         # Display dropdown for cities
         city_name = st.selectbox("Select City", selected_cities)
 
-        rooftop = st.text_input("Enter your roof-top area(in Sq.Feet)")
-        shadow = st.text_input("Enter % of Shadow Free Open Space Available")
+        rooftop = st.text_input("Enter your roof-top area(in sq.feet)")
+        shadow = st.text_input("Enter % of shadowed area available")
 
         # Assuming you have already collected the user inputs
         rooftop_area_input = rooftop.strip()  # Remove leading and trailing spaces
@@ -839,27 +846,27 @@ def main():
             # )
 
             if city_name:
-                weather_data = get_weather(city_name)
+                # weather_data = get_weather(city_name)
 
-                if weather_data:
+                # if weather_data:
                     # st.write("Weather Data:")
                     # st.write(weather_data)
 
                     # Extract latitude and longitude
-                    if "coord" in weather_data:
-                        lat = weather_data["coord"]["lat"]
-                        lon = weather_data["coord"]["lon"]
-                        # st.write(f"Latitude: {lat}, Longitude: {lon}")
+                    # if "coord" in weather_data:
+                    #     lat = weather_data["coord"]["lat"]
+                    #     lon = weather_data["coord"]["lon"]
+                    #     # st.write(f"Latitude: {lat}, Longitude: {lon}")
 
-                    else:
-                        st.write("Latitude and longitude not found in response.")
+                    # else:
+                    #     st.write("Latitude and longitude not found in response.")
 
-                    weather_history = get_weather_history(city_name, lat, lon)
+                    weather_history = get_weather_history(city_name)
 
                     if weather_history:
                         # st.write("Weather History Data:")
                         # st.write(weather_history)
-                        print("aa")
+                        print("Weather history")
                     else:
                         st.write(
                             "Failed to fetch weather history data. Please check your input and try again."
@@ -909,36 +916,79 @@ def main():
 
                     # Calculate sum of predictions per month
                     total_predictions = sum(predictions_per_month)
+                    average_total_predictions_per_month = total_predictions / 12
 
                     # Display sum
                     st.write(
-                        f"<h3 style='color:white;'>Total Power Generation/year(per panel):{total_predictions:.2f} units.</h3>",
+                        f"<h3 style='color:white;'>Average Power Generation/month(per panel):{average_total_predictions_per_month:.2f} units.</h3>",
                         unsafe_allow_html=True,
                     )
 
                     # Multiply total predictions by new rooftop area
                     total_energy_generation = total_predictions * new_rooftop_area_sqft
+                    average_energy_generation_per_month = total_energy_generation / 12
 
                     # Display total energy generation
                     st.write(
-                        f"<h3 style='color:white;'>Total Power Generation/year:{total_energy_generation:.2f} units.</h3>",
+                        f"<h3 style='color:white;'>Average Solar Power Generation/month:{average_energy_generation_per_month:.2f} units.</h3>",
                         unsafe_allow_html=True,
                     )
 
-                    # Plotting the graph
-                    plt.figure(figsize=(7, 3))
-                    plt.plot(predictions_per_month, label="Predictions")
-                    plt.xlabel("Month")
-                    plt.ylabel("Power Generation")
-                    plt.title(f"Predicted Power Generation/month for {city_name}")
-                    plt.legend()
-                    plt.grid(True)
-                    st.pyplot(plt)
+                    # Generate some example month names for the x-axis
+                    month_names = [
+                        "Jan",
+                        "Feb",
+                        "Mar",
+                        "Apr",
+                        "May",
+                        "Jun",
+                        "Jul",
+                        "Aug",
+                        "Sep",
+                        "Oct",
+                        "Nov",
+                        "Dec",
+                    ]
 
-                else:
-                    st.write(
-                        "Failed to fetch weather data. Please check your input and try again."
+                    # Create a Plotly figure
+                    fig = go.Figure()
+
+                    # Add a trace for the predictions
+                    fig.add_trace(
+                        go.Scatter(
+                            x=month_names,
+                            y=predictions_per_month,
+                            mode="lines",
+                            name="Predictions",
+                        )
                     )
+
+                    # Update layout with titles and axis labels
+                    fig.update_layout(
+                        title=f"Predicted Power Generation/month for {city_name}",
+                        xaxis_title="Month",
+                        yaxis_title="Power Generation",
+                        showlegend=True,
+                        xaxis=dict(
+                            tickmode="array",
+                            tickvals=list(range(len(month_names))),
+                            ticktext=month_names,
+                        ),
+                        yaxis=dict(gridcolor="lightgrey"),
+                        height=700,  # Adjust the height as needed
+                        width=1500,  # Adjust the width as needed
+                        margin=dict(
+                            t=50, b=50, l=50, r=50
+                        ),  # Adjust margins to center-align the plot
+                        font=dict(size=34),  # Adjust font size
+                    )
+
+                    # Show the plot
+                    st.plotly_chart(fig)
+                # else:
+                #     st.write(
+                #         "Failed to fetch weather data. Please check your input and try again."
+                #     )
             else:
                 st.write("Please enter both city name and API key.")
 

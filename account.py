@@ -19,7 +19,7 @@ db = firestore.client()
 def app():
 
     # Usernm = []
-    st.title("Solar Panel Defect Detection using CV")
+    st.title("Solar Panel Defect Detection using Computer Vision")
 
     if "username" not in st.session_state:
         st.session_state.username = ""
@@ -145,8 +145,14 @@ def app():
             st.button("Login", on_click=f)
 
     if st.session_state.signout:
-        st.text("Username: " + st.session_state.username)
-        st.text("Email-id: " + st.session_state.useremail)
+        # st.text("Username: " + st.session_state.username)
+        st.write("Welcome " + st.session_state.username + ", ")
+        st.write(
+            "<div style='color: black;font-weight:500;font-size:35px;margin-bottom:30%;'><b>Manual inspection of large-scale solar farms is time-consuming and expensive. Therefore, our automated system utilizes computer vision techniques to accurately identify and classify defects in solar panels is required to improve maintenance efficiency and ensure optimal energy generation from solar installations.</b></div>",
+            unsafe_allow_html=True,
+        )
+
+        # st.text("Email-id: " + st.session_state.useremail)
         st.button("Log out", on_click=t)
 
     def ap():
