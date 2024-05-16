@@ -65,6 +65,17 @@ button_styles = """
         .css-1nm2qww{
             background-color: #FFFFFF
         }
+        # .css-k7vsyb span{
+        #     margin-left:7px;
+        #     font-size:34px;
+        # }
+        .css-1y4p8pa{
+            max-width:none;
+            padding-left:7rem;
+            padding-top:15px;
+            width:100%;
+        }
+        
         .css-16idsys p {
             margin-bottom: 0px;
             font-size: 30px;
@@ -134,6 +145,7 @@ def main():
     # Buttons with text in sidebar
     with st.sidebar:
         st.markdown(original_title, unsafe_allow_html=True)
+        # st.write("Logged in:", st.session_state.logged_in)
 
         if st.button("Upload image", key="button1", type="primary"):
             # Redirect to the home page

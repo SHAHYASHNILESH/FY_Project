@@ -11,7 +11,7 @@ import plotly.graph_objs as go
 import time
 import plotly.express as px
 
-matplotlib.use("TkAgg")  # Set the backend to TkAgg
+matplotlib.use("TkAgg")
 import mplcursors
 from firebase_admin import credentials, firestore, initialize_app, storage
 
@@ -139,9 +139,9 @@ def get_weather(city_name, api_key="c30889904ca059fafc2004594b099a4e"):
         return None
 
 
-def get_weather_history(city_name,api_key="0d4122627da444959fa105007241205"):
+def get_weather_history(city_name, api_key="0d4122627da444959fa105007241205"):
     url = f"http://api.worldweatheronline.com/premium/v1/weather.ashx?key={api_key}&q={city_name}&fx=no&cc=no&mca=yes&format=json"
-    response = requests.get(url,timeout=10)
+    response = requests.get(url, timeout=10)
     if response.status_code == 200:
         return response.json()
     else:
@@ -746,249 +746,137 @@ def main():
                 unsafe_allow_html=True,
             )
 
-            # if state == "Maharashtra" or state == "Goa":
-            #     # prediction = pred(
-            #     #     4461,
-            #     #     1795087538,
-            #     #     24.7412737999999,
-            #     #     23.7866617999999,
-            #     #     0.002838054505,
-            #     #     65.9333333333333,
-            #     # )
-            #     # Display predictions
-            #     # st.write("Linear Regression Prediction:", lr_prediction[0])
-            #     # st.write("Decision Tree Prediction:", dt_prediction[0])
-            #     # st.write("Random Forest Prediction:", rf_prediction[0])
-            #     # st.write("Average Prediction:", average_prediction[0])
-            #     # Round the prediction to 2 decimal places
-            #     # rounded_prediction = round(prediction, 2)
-
-            #     # Display the rounded prediction
-            #     # st.write(
-            #     #     f"<h3 style='color:white;'>Predicted Power generation: {rounded_prediction}W</h3>",
-            #     #     unsafe_allow_html=True,
-            #     # )
-            #     st.write(
-            #         f"<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # elif state == "Rajasthan":
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # elif state == "Gujarat":
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # elif state == "Delhi":
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:115 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # elif state == "Jammu and Kashmir":
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:95 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # elif (
-            #     state == "Himachal Pradesh"
-            #     or state == "Punjab"
-            #     or state == "Chandigarh"
-            #     or state == "Uttarakhand"
-            # ):
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:110 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # elif (
-            #     state == "Andhra Pradesh"
-            #     or state == "Karnataka"
-            #     or state == "Kerala"
-            #     or state == "Tamil Nadu"
-            # ):
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:127 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # elif (
-            #     state == "Uttar Pradesh"
-            #     or state == "Bihar"
-            #     or state == "Jharkhand"
-            #     or state == "Madhya Pradesh"
-            # ):
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:122 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-            # else:
-            #     st.write(
-            #         "<h3 style='color:white;'>Predicted Power generation/month:120 units(1 kg)</h3>",
-            #         unsafe_allow_html=True,
-            #     )
-
-            # st.write(
-            #     "<h3 style='color:white;'>There are 2 major varieties available:</h3>",
-            #     unsafe_allow_html=True,
-            # )
-            # st.write(
-            #     "<h5 style='color:white;'>Rs. 18,000 is for solar panels which generate 550 Watt of electricity and weight is around 28kg.</h5>",
-            #     unsafe_allow_html=True,
-            # )
-            # st.write(
-            #     "<h5 style='color:white;'>Rs. 11,500 is for solar panels which generate 350 Watt of electricity and weight is around 28kg.</h5>",
-            #     unsafe_allow_html=True,
-            # )
-            # st.write(
-            #     "<h5 style='color:white;font-size:27px;'>For further inquiry, Contact: <a href='tel:+919422161101'>+91 94221 61101</a></h5>",
-            #     unsafe_allow_html=True,
-            # )
-
             if city_name:
                 # weather_data = get_weather(city_name)
 
                 # if weather_data:
-                    # st.write("Weather Data:")
-                    # st.write(weather_data)
+                # st.write(weather_data)
 
-                    # Extract latitude and longitude
-                    # if "coord" in weather_data:
-                    #     lat = weather_data["coord"]["lat"]
-                    #     lon = weather_data["coord"]["lon"]
-                    #     # st.write(f"Latitude: {lat}, Longitude: {lon}")
+                weather_history = get_weather_history(city_name)
 
-                    # else:
-                    #     st.write("Latitude and longitude not found in response.")
+                if weather_history:
+                    # st.write(weather_history)
+                    print("Weather history")
+                else:
+                    st.write(
+                        "Failed to fetch weather history data. Please check your input and try again."
+                    )
 
-                    weather_history = get_weather_history(city_name)
+                # Extracting absMaxTemp for each month
+                Temp_array = [
+                    float(month_data["absMaxTemp"])
+                    for month_data in weather_history["data"]["ClimateAverages"][0][
+                        "month"
+                    ]
+                ]
+                # st.write(Temp_array)
 
-                    if weather_history:
-                        # st.write("Weather History Data:")
-                        # st.write(weather_history)
-                        print("Weather history")
+                # New array for sunlight hours
+                sunlight_hrs = []
+                # Iterate over the temperature array
+                for t in Temp_array:
+                    if t < 30:
+                        sunlight_hrs.append(round(9 + 0.5 * (t - 30), 2))
                     else:
-                        st.write(
-                            "Failed to fetch weather history data. Please check your input and try again."
-                        )
+                        sunlight_hrs.append(round(10 + (t - 30), 2))
 
-                    # Extracting absMaxTemp for each month
-                    Temp_array = [
-                        float(month_data["absMaxTemp"])
-                        for month_data in weather_history["data"]["ClimateAverages"][0][
-                            "month"
-                        ]
-                    ]
-                    # st.write(Temp_array)
+                # Printing the sunlight hours array
+                # st.write(sunlight_hrs)
+                # Load the trained model
+                loaded_model = joblib.load(
+                    "C:/FY_Project/linear_regression_model_new.pkl"
+                )
 
-                    # New array for sunlight hours
-                    sunlight_hrs = []
-                    # Iterate over the temperature array
-                    for t in Temp_array:
-                        if t < 30:
-                            sunlight_hrs.append(round(9 + 0.5 * (t - 30), 2))
-                        else:
-                            sunlight_hrs.append(round(10 + (t - 30), 2))
+                # Define new data with temperature and daylight hours
+                new_data = pd.DataFrame(
+                    {"Temperature (°C)": Temp_array, "Daylight Hours": sunlight_hrs}
+                )
 
-                    # Printing the sunlight hours array
-                    # st.write(sunlight_hrs)
-                    # Load the trained model
-                    loaded_model = joblib.load(
-                        "C:/FY_Project/linear_regression_model_new.pkl"
+                # Predict using the loaded model
+                predictions = loaded_model.predict(new_data)
+
+                # Multiply each element of the predictions array by 30
+                predictions_per_month = [prediction * 30 for prediction in predictions]
+
+                # Display the predictions per month
+                # st.write("Predicted Power Generation/month:")
+                # st.write(predictions_per_month)
+
+                # Calculate sum of predictions per month
+                total_predictions = sum(predictions_per_month)
+                average_total_predictions_per_month = total_predictions / 12
+
+                # Display sum
+                st.write(
+                    f"<h3 style='color:white;'>Average Power Generation/month(per panel):{average_total_predictions_per_month:.2f} units.</h3>",
+                    unsafe_allow_html=True,
+                )
+
+                # Multiply total predictions by new rooftop area
+                total_energy_generation = total_predictions * new_rooftop_area_sqft
+                average_energy_generation_per_month = total_energy_generation / 12
+
+                # Display total energy generation
+                st.write(
+                    f"<h3 style='color:white;'>Average Solar Power Generation/month:{average_energy_generation_per_month:.2f} units.</h3>",
+                    unsafe_allow_html=True,
+                )
+
+                # Generate some example month names for the x-axis
+                month_names = [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                ]
+
+                # Create a Plotly figure
+                fig = go.Figure()
+
+                # Add a trace for the predictions
+                fig.add_trace(
+                    go.Scatter(
+                        x=month_names,
+                        y=predictions_per_month,
+                        mode="lines",
+                        name="Predictions",
                     )
+                )
 
-                    # Define new data with temperature and daylight hours
-                    new_data = pd.DataFrame(
-                        {"Temperature (°C)": Temp_array, "Daylight Hours": sunlight_hrs}
-                    )
+                # Update layout with titles and axis labels
+                fig.update_layout(
+                    title=f"Predicted Power Generation/month for {city_name}",
+                    xaxis_title="Month",
+                    yaxis_title="Power Generation",
+                    showlegend=True,
+                    xaxis=dict(
+                        tickmode="array",
+                        tickvals=list(range(len(month_names))),
+                        ticktext=month_names,
+                    ),
+                    yaxis=dict(gridcolor="lightgrey"),
+                    height=700,  # Adjust the height as needed
+                    width=1500,  # Adjust the width as needed
+                    margin=dict(
+                        t=50, b=50, l=50, r=50
+                    ),  # Adjust margins to center-align the plot
+                    font=dict(size=34),  # Adjust font size
+                )
 
-                    # Predict using the loaded model
-                    predictions = loaded_model.predict(new_data)
-
-                    # Multiply each element of the predictions array by 30
-                    predictions_per_month = [
-                        prediction * 30 for prediction in predictions
-                    ]
-
-                    # Display the predictions per month
-                    # st.write("Predicted Power Generation/month:")
-                    # st.write(predictions_per_month)
-
-                    # Calculate sum of predictions per month
-                    total_predictions = sum(predictions_per_month)
-                    average_total_predictions_per_month = total_predictions / 12
-
-                    # Display sum
-                    st.write(
-                        f"<h3 style='color:white;'>Average Power Generation/month(per panel):{average_total_predictions_per_month:.2f} units.</h3>",
-                        unsafe_allow_html=True,
-                    )
-
-                    # Multiply total predictions by new rooftop area
-                    total_energy_generation = total_predictions * new_rooftop_area_sqft
-                    average_energy_generation_per_month = total_energy_generation / 12
-
-                    # Display total energy generation
-                    st.write(
-                        f"<h3 style='color:white;'>Average Solar Power Generation/month:{average_energy_generation_per_month:.2f} units.</h3>",
-                        unsafe_allow_html=True,
-                    )
-
-                    # Generate some example month names for the x-axis
-                    month_names = [
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec",
-                    ]
-
-                    # Create a Plotly figure
-                    fig = go.Figure()
-
-                    # Add a trace for the predictions
-                    fig.add_trace(
-                        go.Scatter(
-                            x=month_names,
-                            y=predictions_per_month,
-                            mode="lines",
-                            name="Predictions",
-                        )
-                    )
-
-                    # Update layout with titles and axis labels
-                    fig.update_layout(
-                        title=f"Predicted Power Generation/month for {city_name}",
-                        xaxis_title="Month",
-                        yaxis_title="Power Generation",
-                        showlegend=True,
-                        xaxis=dict(
-                            tickmode="array",
-                            tickvals=list(range(len(month_names))),
-                            ticktext=month_names,
-                        ),
-                        yaxis=dict(gridcolor="lightgrey"),
-                        height=700,  # Adjust the height as needed
-                        width=1500,  # Adjust the width as needed
-                        margin=dict(
-                            t=50, b=50, l=50, r=50
-                        ),  # Adjust margins to center-align the plot
-                        font=dict(size=34),  # Adjust font size
-                    )
-
-                    # Show the plot
-                    st.plotly_chart(fig)
-                # else:
-                #     st.write(
-                #         "Failed to fetch weather data. Please check your input and try again."
-                #     )
+                # Show the plot
+                st.plotly_chart(fig)
+            # else:
+            #     st.write(
+            #         "Failed to fetch weather data. Please check your input and try again."
+            #     )
             else:
                 st.write("Please enter both city name and API key.")
 
