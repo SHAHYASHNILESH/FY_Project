@@ -148,23 +148,23 @@ def app():
         # st.text("Username: " + st.session_state.username)
         st.write("Welcome " + st.session_state.username + ", ")
         st.write(
-            "<div style='color: black;font-weight:700!important;font-size:35px;margin-bottom:1%;'><i style='text-decoration:underline;color:white;font-weight:700;'>Problem Statement:</i><b> Manual inspection of solar panels is time-consuming and expensive. Therefore, our automated system utilizes computer vision techniques to accurately identify and classify defects in solar panels which is required to improve maintenance efficiency and ensure optimal energy generation from solar installations.</b></div>",
+            "<div style='color: black;font-weight:600!important;font-size:35px;margin-bottom:1%;'><i style='text-decoration:underline;color:white;font-weight:700;'>Problem Statement:</i><b> Manual inspection of solar panels is time-consuming and expensive. Therefore, our automated system utilizes computer vision techniques to accurately identify and classify defects in solar panels which is required to improve maintenance efficiency and ensure optimal energy generation from solar installations.</b></div>",
             unsafe_allow_html=True,
         )
         st.write(
-            "<div style='color: white;font-weight:700!important;font-size:35px;margin-bottom:1%;text-decoration:underline;'><i><b>Team Members:</b></i></div>",
+            "<div style='color: white;font-weight:600!important;font-size:35px;margin-bottom:1%;text-decoration:underline;'><i><b>Team Members:</b></i></div>",
             unsafe_allow_html=True,
         )
         st.write(
-            "<div style='color: white;font-weight:700!important;font-size:35px;margin-bottom:1%;'><b>1. Krishang Shah (SAP ID:60003200029)</b></div>",
+            "<div style='color: white;font-weight:600!important;font-size:35px;margin-bottom:1%;'><b>1. Krishang Shah (SAP ID:60003200029)</b></div>",
             unsafe_allow_html=True,
         )
         st.write(
-            "<div style='color: white;font-weight:700!important;font-size:35px;margin-bottom:1%;'><b>2. Harsh Shah (SAP ID:60003200036)</b></div>",
+            "<div style='color: white;font-weight:600!important;font-size:35px;margin-bottom:1%;'><b>2. Harsh Shah (SAP ID:60003200036)</b></div>",
             unsafe_allow_html=True,
         )
         st.write(
-            "<div style='color: white;font-weight:700!important;font-size:35px;margin-bottom:15%;'><b>3. Yash Shah (SAP ID:60003200048)</b></div>",
+            "<div style='color: white;font-weight:600!important;font-size:35px;margin-bottom:15%;'><b>3. Yash Shah (SAP ID:60003200048)</b></div>",
             unsafe_allow_html=True,
         )
 

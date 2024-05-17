@@ -709,16 +709,16 @@ def main():
         }
 
         # Select the state
-        state = st.selectbox("Select State", list(state_cities.keys()))
+        state = st.selectbox("Select State:", list(state_cities.keys()))
 
         # Filter cities based on selected state
         selected_cities = state_cities[state]
 
         # Display dropdown for cities
-        city_name = st.selectbox("Select City", selected_cities)
+        city_name = st.selectbox("Select City:", selected_cities)
 
-        rooftop = st.text_input("Enter your roof-top area(in sq.feet)")
-        shadow = st.text_input("Enter % of shadowed area available")
+        rooftop = st.text_input("Enter your roof-top area(in sq.feet):")
+        shadow = st.text_input("Enter % of shadowed area:")
 
         # Assuming you have already collected the user inputs
         rooftop_area_input = rooftop.strip()  # Remove leading and trailing spaces
