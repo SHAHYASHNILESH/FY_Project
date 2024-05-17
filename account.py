@@ -148,11 +148,10 @@ def app():
         # st.text("Username: " + st.session_state.username)
         st.write("Welcome " + st.session_state.username + ", ")
         st.write(
-            "<div style='color: black;font-weight:600!important;font-size:35px;margin-bottom:30%;'><i style='text-decoration:underline;color:white;font-weight:700;'>Problem Statement:</i><b> Manual inspection of solar panels is time-consuming and expensive. Therefore, our automated system utilizes computer vision techniques to accurately identify and classify defects in solar panels which is required to improve maintenance efficiency and ensure optimal energy generation from solar installations.</b></div>",
+            "<div style='color: black;font-weight:600!important;font-size:35px;margin-bottom:35%;'><b>Please avail all our services using our dashboard.</b></div>",
             unsafe_allow_html=True,
         )
         
-
         # st.text("Email-id: " + st.session_state.useremail)
         st.button("Log out", on_click=t)
 
